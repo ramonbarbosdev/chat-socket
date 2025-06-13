@@ -1,0 +1,12 @@
+<nav *ngIf="sidebarOpen" class="flex flex-col p-4 space-y-2">
+    
+    <a
+      *ngFor="let room of chatRooms"
+      [routerLink]="['/admin/chat', userId]"
+      routerLinkActive="bg-zinc-200"
+      class="hover:bg-zinc-100 px-4 py-2 rounded transition-colors duration-200"
+    >
+      {{ room.name }}
+    </a>
+  </nav>
+  

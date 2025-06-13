@@ -10,6 +10,8 @@ import {
   HlmAvatarFallbackDirective,
   HlmAvatarImageDirective,
 } from '@spartan-ng/helm/avatar';
+import { Salas } from '../../../components/salas/salas';
+
 
 @Component({
   selector: 'app-menu',
@@ -23,7 +25,8 @@ import {
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-  ],
+    Salas
+],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',

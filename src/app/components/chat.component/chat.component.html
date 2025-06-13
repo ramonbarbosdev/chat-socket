@@ -1,13 +1,25 @@
-<div class="chat-container">
-  <div class="chat-messages">
-    <div *ngFor="let msg of messages" class="message">
-      <strong>{{ msg.user }}:</strong> {{ msg.message }}
-      <small class="timestamp">{{ msg.timestamp | date:'shortTime' }}</small>
-    </div>
-  </div>
+<section hlmCard  class="w-full max-w-3xl mx-auto h-[80vh] flex flex-col">
+  <!-- Título -->
+  <card-header hlmCardHeader class="p-4 border-b">
+    <h2 class="text-xl font-semibold">Sala de Bate-Papo</h2>
+  </card-header>
 
-  <div class="chat-input">
-    <input type="text" [(ngModel)]="messageInput" (keyup.enter)="sendMessage()" placeholder="Digite sua mensagem..." />
-    <button (click)="sendMessage()">Enviar</button>
-  </div>
-</div>
+  <!-- Mensagens -->
+  <card-content hlmCardContent class="flex-1 overflow-y-auto p-4 space-y-3 bg-[hsl(var(--muted))]">
+    <div *ngFor="let msg of messages" class="rounded-lg p-3 bg-[hsl(var(--background))] shadow-sm border">
+      <div class="flex justify-between items-center mb-1">
+        <strong class="text-[hsl(var(--primary))]">{{ msg.user }}</strong>
+        <span class="text-xs text-muted-foreground">{{ msg.timestamp | date:'shortTime' }}</span>
+      </div>
+      <p class="text-sm text-[hsl(var(--foreground))]">{{ msg.message }}</p>
+    </div>
+  </card-content>
+
+  <!-- Campo de entrada -->
+  <card-footer hlmCardFooter  class="p-4 border-t">
+    <div class="flex items-center space-x-2 w-full">
+      <input class="flex-1" hlmInput placeholder="Digite sua mensagem..." type='text' [(ngModel)]="messageInput" (keyup.enter)="sendMessage()" />
+      <button (click)="sendMessage()" hlmBtn>Enviar</button>
+    </div>
+  </card-footer>
+</section >
