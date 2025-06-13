@@ -6,14 +6,14 @@ import { Message } from '../models/message';
 import { environment } from '../environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ChatService {
-
   private stompClient!: Client;
   private connected: boolean = false;
   private messageSubject = new Subject<Message>();
   private currentRoomId: string | null = null;
+  private salas = new Map<string, Subject<Message>>();
 
   constructor() {
     this.initConnectionSocket();
@@ -30,7 +30,7 @@ export class ChatService {
     this.stompClient.onConnect = (frame) => {
       this.connected = true;
       console.log('Conectado ao WebSocket');
-      if (this.currentRoomId)    this.subscribeToRoom(this.currentRoomId);
+      if (this.currentRoomId) this.subscribeToRoom(this.currentRoomId);
     };
 
     this.stompClient.onStompError = (frame) => {
@@ -41,17 +41,17 @@ export class ChatService {
   }
 
   subscribeToRoom(roomId: string) {
-  if (!this.connected) {
-    this.currentRoomId = roomId;
-  } else {
-    this.currentRoomId = roomId;
-    this.stompClient.subscribe(`/topic/${roomId}`, (message) => {
-      const parsed: Message = JSON.parse(message.body);
-      console.log(parsed)
-      this.messageSubject.next(parsed);
-    });
+    if (!this.connected) {
+      this.currentRoomId = roomId;
+    } else {
+      this.currentRoomId = roomId;
+      this.stompClient.subscribe(`/topic/${roomId}`, (message) => {
+        const parsed: Message = JSON.parse(message.body);
+        // this.messageSubject.next(parsed);
+        this.salas.get(roomId)?.next(parsed);
+      });
+    }
   }
-}
 
   sendMessage(roomId: string, message: Message) {
     if (this.connected) {
@@ -64,8 +64,11 @@ export class ChatService {
     }
   }
 
-  getMessages(): Observable<Message> {
-    return this.messageSubject.asObservable();
+  getMessages(roomId: string): Observable<Message> {
+    if (!this.salas.has(roomId)) {
+      this.salas.set(roomId, new Subject<Message>());
+    }
+    return this.salas.get(roomId)!.asObservable();
   }
 
   disconnect() {
