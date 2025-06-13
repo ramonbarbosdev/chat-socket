@@ -1,14 +1,7 @@
-FROM maven:3.9.5-eclipse-temurin-17 AS build
+FROM node:22
 WORKDIR /app
-COPY pom.xml .
-COPY src ./src
-
-RUN mvn clean package -DskipTests
-
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-
-COPY --from=build /app/target/syncdb-0.0.1-SNAPSHOT.jar app.jar
-
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+COPY . .
+RUN npm install
+RUN npm install @angular/cli -g
+EXPOSE 4200
+CMD ["ng", "serve", "--host", "0.0.0.0"]
