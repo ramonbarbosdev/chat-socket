@@ -18,6 +18,9 @@
       ],
       "@spartan-ng/helm/icon": [
         ".\\libs/ui/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/avatar": [
+        ".\\libs/ui/ui-avatar-helm/src/index.ts"
       ]
     }
   },

@@ -5,6 +5,12 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucidePanelRightClose, lucidePanelLeftClose } from '@ng-icons/lucide';
 import { RouterOutlet } from '@angular/router';
+import {
+  HlmAvatarComponent,
+  HlmAvatarFallbackDirective,
+  HlmAvatarImageDirective,
+} from '@spartan-ng/helm/avatar';
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -14,6 +20,9 @@ import { RouterOutlet } from '@angular/router';
     HlmButtonModule,
     HlmIconDirective,
     NgIcon,
+    HlmAvatarImageDirective,
+    HlmAvatarComponent,
+    HlmAvatarFallbackDirective,
   ],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],
   templateUrl: './menu.html',
