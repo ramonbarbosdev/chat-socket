@@ -3,6 +3,7 @@ import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { Subject, Observable } from 'rxjs';
 import { Message } from '../models/message';
+import { environment } from '../environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class ChatService {
   }
 
   private initConnectionSocket() {
-    const url = 'http://localhost:8080/chatsocket/chat-socket';
+    const url = `${environment.apiUrlWebSocket}`;
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(url),
       reconnectDelay: 5000,
