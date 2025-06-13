@@ -58,6 +58,12 @@ export class ChatComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
+  //TO:DO - implementar cache de armazenamento de conversa por salas
+  //TO:DO - diferenciar cada envio um do outro
+  //TO:DO - salvar conversas em banco de dados (testar no mongo)
+
+
+
   ngOnInit(): void {
     this.userId = this.route.snapshot.params['userId'];
 
