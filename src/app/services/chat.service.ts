@@ -20,7 +20,7 @@ export class ChatService {
   }
 
   private initConnectionSocket() {
-    const url = `${environment.apiUrlWebSocket}`;
+    const url = `${environment.apiUrlWebSocket}/chat-socket`;
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(url),
       reconnectDelay: 5000,
