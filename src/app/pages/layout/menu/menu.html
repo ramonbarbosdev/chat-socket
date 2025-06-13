@@ -1,2 +1,43 @@
-<p>menu works!</p>
+<!-- Botão para abrir -->
+<div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] border-b-1 border-[hsl(var(--secondary))] ">
+  <div class="flex justify-start p-3 ">
+      <div class="mr-4 hover:bg-zinc-100">
+          <button title="Abrir" hlm  variant="ghost" (click)="toggleSidebar()" class="text-center ">
+               <ng-icon hlm size='sm' name="lucidePanelRightClose" />
+          </button>
+      </div>
+      <div class="">
+          <p>Inicio</p>
+      </div>
+  </div>
+</div>
+
+<div class="flex h-screen ">
+<!-- Sidebar -->
+<div
+  class="fixed top-0 left-0 h-full w-64 bg-[hsl(var(--secondary))] text-[hsl(var(--foreground))] shadow-lg transform transition-transform duration-300 ease-in-out z-50"
+  [ngClass]="{ '-translate-x-full': !sidebarOpen, 'translate-x-0': sidebarOpen }"
+>
+  <div class="flex items-center justify-between p-4 border-b border-gray-700 bg">
+    <span class="text-lg font-bold">Menu</span>
+    <button title="Fechar" hlm variant="ghost" (click)="toggleSidebar()" class="hover:bg-zinc-100">
+      <ng-icon hlm name="lucidePanelLeftClose" size="sm"></ng-icon>
+    </button>
+  </div>
+
+  <nav class="flex flex-col p-4 space-y-2">
+    <a href="#" class="hover:bg-zinc-100 px-4 py-2 rounded">Dashboard</a>
+    <a href="#" class="hover:bg-zinc-100 px-4 py-2 rounded">Usuários</a>
+    <a href="#" class="hover:bg-zinc-100 px-4 py-2 rounded">Relatórios</a>
+  </nav>
+</div>
+
 <router-outlet />
+
+
+<!-- Conteúdo principal -->
+<!-- <div class="flex-1 p-4 ml-0 md:ml-64 transition-all duration-300 bg-[hsl(var(--primary))] ">
+  <h1 class="text-3xl font-bold text-gray-800">Bem-vindo!</h1>
+  <p class="mt-2 text-gray-600">Este é seu painel principal com menu lateral Spartan.</p>
+</div>
+</div> -->
