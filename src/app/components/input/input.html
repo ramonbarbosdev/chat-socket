@@ -1,0 +1,12 @@
+<hlm-form-field class="mb-4 block">
+    <input 
+    title="Campo de entrada" 
+    hlmInput 
+    [type]="type" 
+    [id]="inputId" 
+    [name]="inputId" 
+    [placeholder]="placeholder" 
+    class="w-full"   
+    (input)="onInputChange($event)"/>
+    <hlm-hint>{{label}}</hlm-hint>
+  </hlm-form-field>

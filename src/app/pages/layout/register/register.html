@@ -1,1 +1,29 @@
-<p>register works!</p>
+<div class="flex min-h-screen items-center justify-center bg-muted px-4">
+  <div class="w-full max-w-sm rounded-2xl bg-background p-6 shadow-lg">
+    
+    <hlm-form-field class="mb-4 block">
+      <input hlmInput type="text" placeholder="Login" class="w-full" />
+      <hlm-hint>Novo login cadastrado</hlm-hint>
+    </hlm-form-field>
+
+    <hlm-form-field class="mb-6 block">
+      <input hlmInput type="nome" placeholder="Nome" class="w-full" />
+      <hlm-hint>Seu nome de cadastro</hlm-hint>
+    </hlm-form-field>
+
+    <hlm-form-field class="mb-6 block">
+      <input hlmInput type="password" placeholder="Senha" class="w-full" />
+      <hlm-hint>Nova senha de acesso</hlm-hint>
+    </hlm-form-field>
+
+    <button hlmBtn variant="default" class="w-full mb-3">
+      Cadastrar
+    </button>
+
+    <div class="text-center">
+      <button [routerLink]="['/login']" class="text-sm text-muted-foreground hover:underline">
+        Ja tenho conta
+      </button>
+    </div>
+  </div>
+</div>
