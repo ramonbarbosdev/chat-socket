@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs';
 import { Message } from '../models/message';
 import { environment } from '../environment';
 import { AuthService } from '../auth/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,15 +18,15 @@ export class ChatService {
   private salas = new Map<string, Subject<Message>>();
   private auth = inject(AuthService);
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.initConnectionSocket();
   }
 
   private initConnectionSocket() {
-    // const url = `${environment.apiUrlWebSocket}`;
+    const url = `${environment.apiUrlWebSocket}`;
     let token = this.auth.getToken();
 
-    const url = `${environment.apiUrlWebSocket}?token=${token}`;
+    // const url = `${environment.apiUrlWebSocket}?token=${token}`;
 
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(url),
@@ -68,6 +69,12 @@ export class ChatService {
     } else {
       console.error('WebSocket não está conectado.');
     }
+  }
+
+  sendHistory(roomId: string): Observable<Message[]> {
+    return this.http.get<Message[]>(
+      `${environment.apiUrl}/history/${roomId}`
+    );
   }
 
   getMessages(roomId: string): Observable<Message> {
