@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Client } from '@stomp/stompjs';
 import SockJS from 'sockjs-client';
 import { Subject, Observable } from 'rxjs';
 import { Message } from '../models/message';
 import { environment } from '../environment';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +15,18 @@ export class ChatService {
   private messageSubject = new Subject<Message>();
   private currentRoomId: string | null = null;
   private salas = new Map<string, Subject<Message>>();
+  private auth = inject(AuthService);
 
   constructor() {
     this.initConnectionSocket();
   }
 
   private initConnectionSocket() {
-    const url = `${environment.apiUrlWebSocket}/chat-socket`;
+    // const url = `${environment.apiUrlWebSocket}`;
+    let token = this.auth.getToken();
+
+    const url = `${environment.apiUrlWebSocket}?token=${token}`;
+
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(url),
       reconnectDelay: 5000,

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HlmButtonModule } from '@spartan-ng/helm/button';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
@@ -11,6 +11,7 @@ import {
   HlmAvatarImageDirective,
 } from '@spartan-ng/helm/avatar';
 import { Salas } from '../../../components/salas/salas';
+import { AuthService } from '../../../auth/auth.service';
 
 
 @Component({
@@ -25,16 +26,21 @@ import { Salas } from '../../../components/salas/salas';
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-    Salas
-],
+    Salas,
+  ],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',
 })
 export class Menu {
+  private auth = inject(AuthService);
   sidebarOpen = false;
 
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
+  }
+
+  sair() {
+    this.auth.logout();
   }
 }
