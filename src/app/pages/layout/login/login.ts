@@ -22,22 +22,41 @@ export class Login {
   router = inject(Router);
   constructor(private auth: AuthService) {}
 
+  // To:do -  colocar processamento enquanto o servidor nao responde:
+
   logar() {
-    console.log(this.objeto);
     this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
         this.auth.setToken(res.Authorization);
         this.router.navigate(['admin/home']);
       },
       error: (err) => {
-        console.log(err);
-        Swal.fire({
-          icon: 'error',
-          title: 'Login inválido',
-          text: 'Login ou senha incorreto',
-          confirmButtonText: 'OK',
-        });
+        this.tratarErro(err);
       },
+    });
+  }
+
+  tratarErro(e: any)
+  {
+
+    console.log(e)
+    const status = e.status ?? null;
+    let mensagem = "Login ou senha incorreto"
+
+    if(status == 403)
+    {
+       mensagem = 'Escopo(s) inválido(s) fornecido(s)';
+    }
+    else if (status == 0)
+    {
+      mensagem = 'Sem comunicação com o servidor.';
+    }
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Erro ao efeituar o Login',
+      text: mensagem,
+      confirmButtonText: 'OK',
     });
   }
 }

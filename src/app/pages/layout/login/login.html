@@ -4,7 +4,7 @@
     <app-input
     [inputId]="'login'"
     [label]="'Seu login de acesso'"
-    [model]="objeto.login"
+    [(model)]="objeto.login"
     [required]="true"
     placeholder="Login"
     ></app-input>
@@ -16,11 +16,6 @@
     [required]="true"
     placeholder="Senha"
     ></app-input>
-    
-    <!-- <hlm-form-field class="mb-6 block">
-      <input hlmInput type="password" [id]="objeto.senha" [name]="objeto.senha" placeholder="Senha" class="w-full" />
-      <hlm-hint>Sua senha de acesso</hlm-hint>
-    </hlm-form-field> -->
 
     <button (click)="logar()" hlmBtn variant="default" class="w-full mb-3">
       Entrar
