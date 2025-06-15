@@ -40,7 +40,6 @@ export class Login {
   tratarErro(e: any)
   {
 
-    console.log(e)
     const status = e.status ?? null;
     let mensagem = "Login ou senha incorreto"
 

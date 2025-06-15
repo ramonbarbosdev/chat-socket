@@ -58,7 +58,6 @@ export class AuthService {
   {
     let user = sessionStorage.getItem('user');
     let objeto = user !== null ? JSON.parse(user) : null;
-    console.log(objeto);
     return objeto;
   }
 
