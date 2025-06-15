@@ -20,7 +20,7 @@
   <div hlmCardContent class="flex-1 overflow-y-auto p-4 space-y-3 bg-[hsl(var(--muted))]">
     <div *ngFor="let msg of messages" class="rounded-lg p-3 bg-[hsl(var(--background))] shadow-sm border">
       <div class="flex justify-between items-center mb-1">
-        <strong class="text-[hsl(var(--primary))]">{{ msg.user }}</strong>
+        <strong class="text-[hsl(var(--primary))]">{{ msg.id_usuario }}</strong>
         <span class="text-xs text-muted-foreground">{{ msg.timestamp | date:'shortTime' }}</span>
       </div>
       <p class="text-sm text-[hsl(var(--foreground))]">{{ msg.message }}</p>

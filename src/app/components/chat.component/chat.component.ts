@@ -66,9 +66,7 @@ export class ChatComponent implements OnInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  //TO:DO - implementar cache de armazenamento de conversa por salas
   //TO:DO - diferenciar cada envio um do outro
-  //TO:DO - salvar conversas em banco de dados (testar no mongo)
 
   ngOnInit(): void {
     this.userId = this.auth.getUser().id_usuario;
@@ -86,33 +84,56 @@ export class ChatComponent implements OnInit {
 
     this.chatService.sendHistory(roomId).subscribe((retorno: Message[]) => {
       this.messages = retorno.map((item: any) => ({
-        user: item.id_usuario,
+        id_chatmessage: item.id_chatmessage,
+        id_usuario: item.id_usuario,
         timestamp: formatarDataHora(item.timestamp),
         message: item.message,
+        nm_usuario: '',
+        roomId: '',
       }));
+      console.log("historico");
       this.cdr.detectChanges(); // força update do Angular
     });
 
     this.chatService.subscribeToRoom(roomId);
 
-    if (this.messageSubscription) {
-      this.messageSubscription.unsubscribe();
-    }
+    if (this.messageSubscription)  this.messageSubscription.unsubscribe();
 
     this.messageSubscription = this.chatService
       .getMessages(roomId)
-      .subscribe((msg: Message) => {
-        this.messages.push(msg);
-        this.cdr.detectChanges();
+      .subscribe((retorno: Message) => {
+        
+        const jaExiste = this.messages.some(
+          (m) => m.id_chatmessage === retorno.id_chatmessage
+        );
+
+        if (!jaExiste)
+        {
+          this.messages.push({
+            id_chatmessage: retorno.id_chatmessage,
+            id_usuario: retorno.id_usuario,
+            timestamp: formatarDataHora(retorno.timestamp),
+            message: retorno.message,
+            nm_usuario: '',
+            roomId: '',
+          });
+          console.log('envio');
+          this.cdr.detectChanges();
+
+        }
       });
   }
 
   sendMessage() {
     const chatmessage: Message = {
-      user: this.userId,
+      id_chatmessage: 0,
+      id_usuario: this.userId,
       timestamp: new Date(),
       message: this.messageInput.trim(),
+      nm_usuario: '',
+      roomId: ''
     };
+
 
     this.chatService.sendMessage(this.nomeSala, chatmessage);
     this.messageInput = '';
