@@ -1,0 +1,17 @@
+<div
+[className]="
+  isLogado
+    ? 'rounded-lg p-3 bg-[hsl(var(--primary)/0.1)] border shadow-sm w-full'
+    : 'rounded-lg p-3 bg-[hsl(var(--background))] border shadow-sm w-full'
+  ">   
+  <div class="flex justify-between items-center mb-1">
+      <strong class="text-[hsl(var(--primary))] ">{{ objeto.id_usuario }}</strong>
+  </div>
+  <div class="flex justify-between items-center ">
+      <p class="text-sm text-[hsl(var(--foreground))] mr-5">{{ objeto.message }}</p>
+  </div>
+  <div class="flex justify-end items-center ">
+      <span class="text-xs text-muted-foreground">{{ objeto.timestamp  | date:'shortTime'  }}</span>
+  </div>
+
+</div>

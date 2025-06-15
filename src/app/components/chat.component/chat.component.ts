@@ -24,9 +24,9 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
-import { HttpClient } from '@angular/common/http';
 import { formatarDataHora } from '../../utils/FormatoData';
 import { formatarInicialNome } from '../../utils/InicialNome';
+import { Caixachat } from "../caixachat/caixachat";
 @Component({
   selector: 'app-chat.component',
   imports: [
@@ -44,7 +44,8 @@ import { formatarInicialNome } from '../../utils/InicialNome';
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-  ],
+    Caixachat
+],
   providers: [provideIcons({ lucideSearch })],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
