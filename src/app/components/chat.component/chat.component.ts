@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../models/message';
 import { CommonModule } from '@angular/common';
@@ -44,18 +44,18 @@ import { Caixachat } from "../caixachat/caixachat";
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-    Caixachat
-],
+    Caixachat,
+  ],
   providers: [provideIcons({ lucideSearch })],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
   messageInput = '';
   userId: string = '';
-  nomeSala: string = ''; 
-  nomeSalaInicial: string = ''; 
+  nomeSala: string = '';
+  nomeSalaInicial: string = '';
   messageList: any[] = [];
   private messageSubscription?: Subscription;
 
@@ -66,6 +66,21 @@ export class ChatComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
+
+  @ViewChild('messageContainer') messageContainer?: ElementRef;
+
+  ngAfterViewInit(): void {
+    this.scrollToBottom();
+  }
+
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      if (this.messageContainer) {
+        this.messageContainer.nativeElement.scrollTop =
+          this.messageContainer.nativeElement.scrollHeight;
+      }
+    }, 100); 
+  }
 
   //TO:DO - diferenciar cada envio um do outro
 
@@ -92,24 +107,22 @@ export class ChatComponent implements OnInit {
         nm_usuario: '',
         roomId: '',
       }));
-      console.log("historico");
+      console.log('historico');
       this.cdr.detectChanges(); // força update do Angular
     });
 
     this.chatService.subscribeToRoom(roomId);
 
-    if (this.messageSubscription)  this.messageSubscription.unsubscribe();
+    if (this.messageSubscription) this.messageSubscription.unsubscribe();
 
     this.messageSubscription = this.chatService
       .getMessages(roomId)
       .subscribe((retorno: Message) => {
-        
         const jaExiste = this.messages.some(
           (m) => m.id_chatmessage === retorno.id_chatmessage
         );
 
-        if (!jaExiste)
-        {
+        if (!jaExiste) {
           this.messages.push({
             id_chatmessage: retorno.id_chatmessage,
             id_usuario: retorno.id_usuario,
@@ -120,9 +133,9 @@ export class ChatComponent implements OnInit {
           });
           console.log('envio');
           this.cdr.detectChanges();
-
         }
       });
+      this.scrollToBottom();
   }
 
   sendMessage() {
@@ -132,15 +145,12 @@ export class ChatComponent implements OnInit {
       timestamp: new Date(),
       message: this.messageInput.trim(),
       nm_usuario: '',
-      roomId: ''
+      roomId: '',
     };
-
 
     this.chatService.sendMessage(this.nomeSala, chatmessage);
     this.messageInput = '';
   }
-
-
 
   ngOnDestroy(): void {
     this.messageSubscription?.unsubscribe();
