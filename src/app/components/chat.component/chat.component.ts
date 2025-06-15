@@ -6,11 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import {
   HlmCardContentDirective,
-  HlmCardDescriptionDirective,
   HlmCardDirective,
   HlmCardFooterDirective,
   HlmCardHeaderDirective,
-  HlmCardTitleDirective,
 } from '@spartan-ng/helm/card';
 import {
   HlmAvatarComponent,
@@ -33,11 +31,9 @@ import { Caixachat } from "../caixachat/caixachat";
     CommonModule,
     FormsModule,
     HlmCardContentDirective,
-    HlmCardDescriptionDirective,
     HlmCardDirective,
     HlmCardFooterDirective,
     HlmCardHeaderDirective,
-    HlmCardTitleDirective,
     HlmInputDirective,
     HlmIconDirective,
     NgIcon,
