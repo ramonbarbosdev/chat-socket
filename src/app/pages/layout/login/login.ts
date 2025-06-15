@@ -27,6 +27,7 @@ export class Login {
   logar() {
     this.auth.login(this.objeto).subscribe({
       next: (res: any) => {
+        this.auth.setUser(res)
         this.auth.setToken(res.Authorization);
         this.router.navigate(['admin/home']);
       },

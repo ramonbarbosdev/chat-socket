@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private readonly apiUrl = `${environment.apiUrl}`;
@@ -28,16 +28,38 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
+    this.clearToken();
     this.router.navigate(['/login']);
   }
 
   setToken(token: string) {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return sessionStorage.getItem('token');
+  }
+
+  clearToken() {
+    sessionStorage.removeItem('token');
+  }
+
+  setUser(info: any)
+  {
+    let objeto = {
+      id_usuario: info.id_usuario,
+      nm_usuario: info.id_usuario,
+      login: info.login,
+    };
+    sessionStorage.setItem('user', JSON.stringify(objeto));
+  }
+
+  getUser()
+  {
+    let user = sessionStorage.getItem('user');
+    let objeto = user !== null ? JSON.parse(user) : null;
+    console.log(objeto);
+    return objeto;
   }
 
   isAuthenticated(): boolean {

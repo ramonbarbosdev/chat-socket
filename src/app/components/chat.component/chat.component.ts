@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
 import { Message } from '../../models/message';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,7 @@ import { HlmIconDirective } from '@spartan-ng/helm/icon';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideSearch } from '@ng-icons/lucide';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 @Component({
   selector: 'app-chat.component',
   imports: [
@@ -52,6 +53,9 @@ export class ChatComponent implements OnInit {
   nomeSala: string = '';
   messageList: any[] = [];
   private messageSubscription?: Subscription;
+
+  private auth = inject(AuthService);
+
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
@@ -62,10 +66,8 @@ export class ChatComponent implements OnInit {
   //TO:DO - diferenciar cada envio um do outro
   //TO:DO - salvar conversas em banco de dados (testar no mongo)
 
-
-
   ngOnInit(): void {
-    this.userId = this.route.snapshot.params['userId'];
+    this.userId = this.auth.getUser();
 
     this.route.queryParamMap.subscribe((params) => {
       this.nomeSala = params.get('nomeSala') ?? '';

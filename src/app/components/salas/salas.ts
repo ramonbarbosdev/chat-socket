@@ -23,7 +23,7 @@ export class Salas {
   onOpen(nomeSala: string) {
 
 
-    this.router.navigate(['/admin/chat', this.userId], {
+    this.router.navigate(['/admin/chat'], {
       queryParams: {
         nomeSala: nomeSala,
       },
