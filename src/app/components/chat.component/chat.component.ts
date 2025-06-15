@@ -25,6 +25,7 @@ import { AuthService } from '../../auth/auth.service';
 import { formatarDataHora } from '../../utils/FormatoData';
 import { formatarInicialNome } from '../../utils/InicialNome';
 import { Caixachat } from "../caixachat/caixachat";
+import { Baseservice } from '../../services/baseservice';
 @Component({
   selector: 'app-chat.component',
   imports: [
@@ -56,6 +57,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   private messageSubscription?: Subscription;
 
   private auth = inject(AuthService);
+  private basService = inject(Baseservice);
+  private nomeCache = new Map<string, string>();
 
   constructor(
     private chatService: ChatService,
@@ -75,7 +78,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
         this.messageContainer.nativeElement.scrollTop =
           this.messageContainer.nativeElement.scrollHeight;
       }
-    }, 100); 
+    }, 100);
   }
 
   //TO:DO - diferenciar cada envio um do outro
@@ -103,9 +106,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
         nm_usuario: '',
         roomId: '',
       }));
-      console.log('historico');
-      this.cdr.detectChanges(); // força update do Angular
+
+      this.messages.forEach((msg) => this.obterNomeUsuario(msg.id_usuario));
+      this.cdr.detectChanges();
+      this.scrollToBottom();
     });
+
+    
 
     this.chatService.subscribeToRoom(roomId);
 
@@ -124,14 +131,15 @@ export class ChatComponent implements OnInit, AfterViewInit {
             id_usuario: retorno.id_usuario,
             timestamp: formatarDataHora(retorno.timestamp),
             message: retorno.message,
-            nm_usuario: '',
+            nm_usuario: "",
             roomId: '',
           });
-          console.log('envio');
+          this.obterNomeUsuario(retorno.id_usuario);
           this.cdr.detectChanges();
+          this.scrollToBottom();
         }
       });
-      this.scrollToBottom();
+    this.scrollToBottom();
   }
 
   sendMessage() {
@@ -146,6 +154,31 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this.chatService.sendMessage(this.nomeSala, chatmessage);
     this.messageInput = '';
+  }
+
+  obterNomeUsuario(id_usuario: string): void {
+    if (this.nomeCache.has(id_usuario)) {
+      this.atualizarNomeUsuario(id_usuario, this.nomeCache.get(id_usuario)!);
+      return;
+    }
+
+    this.basService.obterNomeUsuario(id_usuario).subscribe({
+      next: (nome) => {
+        this.nomeCache.set(id_usuario, nome);
+        this.atualizarNomeUsuario(id_usuario, nome);
+      },
+      error: () => {
+        this.atualizarNomeUsuario(id_usuario, 'Usuário');
+      },
+    });
+  }
+
+  private atualizarNomeUsuario(id_usuario: string, nome: string) {
+    const msgs = this.messages.filter(
+      (m) => m.id_usuario === id_usuario && !m.nm_usuario
+    );
+    msgs.forEach((msg) => (msg.nm_usuario = nome));
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

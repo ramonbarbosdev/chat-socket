@@ -1,0 +1,39 @@
+<hlm-sheet side="right">
+    <button id="edit-profile" variant="outline" brnSheetTrigger hlmBtn>Nova Sala</button>
+   
+   
+    <hlm-sheet-content *brnSheetContent="let ctx">
+      <hlm-sheet-header>
+        <h3 hlmSheetTitle>Crie sua sala</h3>
+        <p hlmSheetDescription>Compartilhe com amigos</p>
+      </hlm-sheet-header>
+
+      
+
+      <div class="py-4 grid gap-4">
+        <app-input
+            [inputId]="'nm_sala'"
+            [type]="'text'"
+            [label]="'Novo nome para cadastro'"
+            [(model)]="objeto.nm_room"
+            [required]="true"
+            placeholder="Nome"
+        >
+        </app-input>
+        <app-input
+            [inputId]="'ds_room'"
+            [type]="'text'"
+            [label]="'Nova descrição para cadastro'"
+            [(model)]="objeto.ds_room"
+            [required]="true"
+            placeholder="Descrição"
+        >
+        </app-input>
+      </div>
+
+      <hlm-sheet-footer>
+        <button  hlmBtn type="button" (click)="onSave()">Salvar</button>
+      </hlm-sheet-footer>
+
+    </hlm-sheet-content>
+  </hlm-sheet>
