@@ -17,6 +17,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { AuthService } from '../../auth/auth.service';
 import { Baseservice } from '../../services/baseservice';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-salaform',
   imports: [
@@ -38,8 +39,9 @@ export class Salaform implements OnInit {
   public objeto: Rooms = new Rooms();
   private auth = inject(AuthService);
   private baseService = inject(Baseservice);
-  endpoint =  "room"
+  endpoint = 'room';
   userId: number = 0;
+  router = inject(Router);
 
   ngOnInit(): void {
     this.userId = this.auth.getUser().id_usuario ?? null;
@@ -49,7 +51,7 @@ export class Salaform implements OnInit {
     this.objeto.id_usuario = this.userId;
     this.baseService.cadastrar(this.endpoint, this.objeto).subscribe({
       next: (res: any) => {
-       
+        this.router.navigate(['admin/home']);
       },
       error: (err) => {},
     });

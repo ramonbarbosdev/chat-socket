@@ -56,18 +56,21 @@
       </div>
 
       <!-- Menu de navegação -->
-      <nav class="flex flex-col p-4 space-y-2">
+      <nav *ngIf="sidebarOpen" class="flex flex-col p-4 space-y-2">
           <app-salaform>
           </app-salaform>
       </nav>
-       <app-salas
-       [sidebarOpen]="sidebarOpen"
-       ></app-salas>
-
-       <a href="#" (click)="sair()">
-        <i class="bi bi-box-arrow-left"></i>
-        Sair
-      </a>
+      <app-salas
+      [sidebarOpen]="sidebarOpen"
+      ></app-salas>
+      
+      <nav *ngIf="sidebarOpen" class="flex flex-col p-4 space-y-2">
+        <a href="#" (click)="sair()">
+          <i class="bi bi-box-arrow-left"></i>
+          Sair
+        </a>
+      </nav>
+     
       
     </div>
 
