@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { Salas } from "../salas/salas";
@@ -22,6 +22,7 @@ import {
   HlmMenuShortcutComponent,
   HlmSubMenuComponent,
 } from '@spartan-ng/helm/menu';
+import { Roomeventservice } from '../../services/roomeventservice';
 
 @Component({
   selector: 'app-nav-menu',
@@ -50,6 +51,8 @@ export class NavMenu implements OnInit {
   router = inject(Router);
   baseService = inject(Baseservice);
   private auth = inject(AuthService);
+  private roomEvents = inject(Roomeventservice);
+  private cdRef = inject(ChangeDetectorRef);
 
   endpoint = 'room';
   public objetos: Rooms[] | any = [];
@@ -58,13 +61,14 @@ export class NavMenu implements OnInit {
 
   ngOnInit(): void {
     this.obterTodasSalas();
+    this.roomEvents.reload$.subscribe(() => this.obterTodasSalas());
   }
 
   obterTodasSalas() {
     this.baseService.obterTodos(this.endpoint).subscribe({
       next: (res) => {
-        // console.log(res);
         this.objetos = res;
+        this.cdRef.detectChanges();
       },
       error: () => {},
     });
@@ -76,6 +80,16 @@ export class NavMenu implements OnInit {
         id_room: id_room,
         nm_room: nm_room,
       },
+    });
+  }
+
+  excluirSala(id_room: number) {
+    this.baseService.deletar(this.endpoint, id_room).subscribe({
+      next: (res: any) => {
+        this.obterTodasSalas();
+        this.router.navigate(['/admin/home'])
+      },
+      error: (err) => {},
     });
   }
 

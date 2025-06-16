@@ -1,8 +1,8 @@
 <hlm-command
   *ngIf="sidebarOpen"
-  class="w-full bg-[hsl(var(--background))] border-[hsl(var(--secondary))]"
+  class="w-full  bg-[hsl(var(--background))] border-[hsl(var(--secondary))]"
 >
-  <hlm-command-list>
+  <hlm-command-list >
     <hlm-command-group>
       <hlm-command-group-label>Salas</hlm-command-group-label>
       <div *ngFor="let objeto of objetos" (contextmenu)="onRightClick($event, objeto)">
@@ -60,7 +60,7 @@
   
         <hlm-menu-separator />
   
-        <button hlmMenuItem >
+        <button (click)="excluirSala(itemSelecionado.id_room)" hlmMenuItem >
           Excluir
         </button>
       </hlm-menu-group>

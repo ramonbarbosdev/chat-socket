@@ -84,10 +84,11 @@ export class Baseservice {
         return res;
       }),
       catchError((e) => {
+        console.log(e)
         Swal.fire({
           icon: 'error',
           title: 'Erro ao salvar!',
-          text: e.error.error,
+          text: e.error.message,
           confirmButtonText: 'OK',
         });
         return throwError(() => e);
