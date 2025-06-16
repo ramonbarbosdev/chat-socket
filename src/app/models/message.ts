@@ -3,6 +3,6 @@ export interface Message {
   id_usuario: string;
   nm_usuario: string;
   message: string;
-  roomId: string;
+  id_room: string;
   timestamp: Date;
 }

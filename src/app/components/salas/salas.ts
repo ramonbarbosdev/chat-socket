@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import { Baseservice } from '../../services/baseservice';
+import { Rooms } from '../../models/rooms';
 
 @Component({
   selector: 'app-salas',
@@ -8,24 +10,33 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './salas.html',
   styleUrl: './salas.scss',
 })
-export class Salas {
+export class Salas implements OnInit {
   @Input() sidebarOpen: boolean = true;
 
-  userId = 1;
   router = inject(Router);
+  baseService = inject(Baseservice);
+  endpoint = 'room';
+  public objetos: Rooms[] | any = [];
 
-  chatRooms = [
-    { id: 1, name: 'Sala Geral' },
-    { id: 2, name: 'Projetos' },
-    { id: 3, name: 'TI Interno' },
-  ];
+  ngOnInit(): void {
+    this.obterTodasSalas();
+  }
 
-  onOpen(nomeSala: string) {
+  obterTodasSalas() {
+    this.baseService.obterTodos(this.endpoint).subscribe({
+      next: (res) => {
+        // console.log(res);
+        this.objetos = res;
+      },
+      error: () => {},
+    });
+  }
 
-
+  onOpen(id_room: number, nm_room:string) {
     this.router.navigate(['/admin/chat'], {
       queryParams: {
-        nomeSala: nomeSala,
+        id_room: id_room,
+        nm_room: nm_room,
       },
     });
   }

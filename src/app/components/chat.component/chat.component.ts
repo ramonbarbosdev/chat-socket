@@ -51,7 +51,8 @@ export class ChatComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
   messageInput = '';
   userId: string = '';
-  nomeSala: string = '';
+  id_room: string = '';
+  nm_room: string = '';
   nomeSalaInicial: string = '';
   messageList: any[] = [];
   private messageSubscription?: Subscription;
@@ -87,59 +88,23 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.userId = this.auth.getUser().id_usuario;
 
     this.route.queryParamMap.subscribe((params) => {
-      this.nomeSala = params.get('nomeSala') ?? '';
-      this.nomeSalaInicial = formatarInicialNome(this.nomeSala);
+      this.id_room = params.get('id_room') ?? '';
+      this.nm_room = params.get('nm_room') ?? '';
+      this.nomeSalaInicial = formatarInicialNome(this.nm_room);
 
-      this.enterRoom(this.nomeSala);
+      this.enterRoom(this.id_room);
     });
   }
 
   enterRoom(roomId: string) {
     this.messages = [];
 
-    this.chatService.sendHistory(roomId).subscribe((retorno: Message[]) => {
-      this.messages = retorno.map((item: any) => ({
-        id_chatmessage: item.id_chatmessage,
-        id_usuario: item.id_usuario,
-        timestamp: formatarDataHora(item.timestamp),
-        message: item.message,
-        nm_usuario: '',
-        roomId: '',
-      }));
-
-      this.messages.forEach((msg) => this.obterNomeUsuario(msg.id_usuario));
-      this.cdr.detectChanges();
-      this.scrollToBottom();
-    });
-
-    
-
-    this.chatService.subscribeToRoom(roomId);
+    this.processarHistorico();
+    this.chatService.subscribeToRoom(this.id_room);
 
     if (this.messageSubscription) this.messageSubscription.unsubscribe();
 
-    this.messageSubscription = this.chatService
-      .getMessages(roomId)
-      .subscribe((retorno: Message) => {
-        const jaExiste = this.messages.some(
-          (m) => m.id_chatmessage === retorno.id_chatmessage
-        );
-
-        if (!jaExiste) {
-          this.messages.push({
-            id_chatmessage: retorno.id_chatmessage,
-            id_usuario: retorno.id_usuario,
-            timestamp: formatarDataHora(retorno.timestamp),
-            message: retorno.message,
-            nm_usuario: "",
-            roomId: '',
-          });
-          this.obterNomeUsuario(retorno.id_usuario);
-          this.cdr.detectChanges();
-          this.scrollToBottom();
-        }
-      });
-    this.scrollToBottom();
+    this.processarMensagem();
   }
 
   sendMessage() {
@@ -149,11 +114,57 @@ export class ChatComponent implements OnInit, AfterViewInit {
       timestamp: new Date(),
       message: this.messageInput.trim(),
       nm_usuario: '',
-      roomId: '',
+      id_room: '',
     };
 
-    this.chatService.sendMessage(this.nomeSala, chatmessage);
+    this.chatService.sendMessage(this.id_room, chatmessage);
     this.messageInput = '';
+  }
+
+  processarHistorico() {
+    this.chatService.sendHistory(this.id_room).subscribe((res: any[]) => {
+      if (!res || res.length === 0) return;
+
+      this.messages = res.map((item: any) => ({
+        id_chatmessage: item.id_chatmessage,
+        id_usuario: item.id_usuario,
+        timestamp: formatarDataHora(item.timestamp),
+        message: item.message,
+        nm_usuario: '',
+        id_room: item.id_room,
+      }));
+
+      this.messages.forEach((msg) => {
+        this.obterNomeUsuario(msg.id_usuario); 
+      });
+
+      this.cdr.detectChanges();
+      this.scrollToBottom();
+    });
+  }
+
+  processarMensagem() {
+    this.messageSubscription = this.chatService
+      .getMessages(this.id_room)
+      .subscribe((res: Message) => {
+        const jaExiste = this.messages.some(
+          (m) => m.id_chatmessage === res.id_chatmessage
+        );
+
+        if (!jaExiste) {
+          this.messages.push({
+            id_chatmessage: res.id_chatmessage,
+            id_usuario: res.id_usuario,
+            timestamp: formatarDataHora(res.timestamp),
+            message: res.message,
+            nm_usuario: '',
+            id_room: res.id_room,
+          });
+          this.obterNomeUsuario(res.id_usuario);
+          this.cdr.detectChanges();
+          this.scrollToBottom();
+        }
+      });
   }
 
   obterNomeUsuario(id_usuario: string): void {
