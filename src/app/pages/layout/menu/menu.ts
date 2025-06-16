@@ -14,7 +14,7 @@ import { Salas } from '../../../components/salas/salas';
 import { AuthService } from '../../../auth/auth.service';
 import { Salaform } from "../../../components/salaform/salaform";
 import { formatarInicialNome } from '../../../utils/InicialNome';
-
+import { NavMenu } from "../../../components/nav-menu/nav-menu";
 
 @Component({
   selector: 'app-menu',
@@ -29,7 +29,8 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
     Salas,
-    Salaform
+    Salaform,
+    NavMenu
 ],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],
   templateUrl: './menu.html',
@@ -38,13 +39,13 @@ import { formatarInicialNome } from '../../../utils/InicialNome';
 export class Menu implements OnInit {
   private auth = inject(AuthService);
   sidebarOpen = false;
-  nm_usuario = "";
-  nm_cargo = "";
-  nm_inicial = "";
+  nm_usuario = '';
+  nm_cargo = '';
+  nm_inicial = '';
 
   ngOnInit(): void {
     this.nm_usuario = this.auth.getUser().nm_usuario;
-    this.nm_cargo = "Usuario"
+    this.nm_cargo = 'Usuario';
     this.nm_inicial = formatarInicialNome(this.nm_usuario);
   }
 

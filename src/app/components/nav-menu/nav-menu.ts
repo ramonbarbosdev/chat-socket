@@ -1,20 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
-import { Baseservice } from '../../services/baseservice';
-import { Rooms } from '../../models/rooms';
+import { Component, inject, Input } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
+import { Salas } from "../salas/salas";
+import { Router } from '@angular/router';
+import { Baseservice } from '../../services/baseservice';
+import { Rooms } from '../../models/rooms';
+import { AuthService } from '../../auth/auth.service';
+
 @Component({
-  selector: 'app-salas',
-  imports: [CommonModule, BrnCommandImports, HlmCommandImports],
-  templateUrl: './salas.html',
-  styleUrl: './salas.scss',
+  selector: 'app-nav-menu',
+  imports: [CommonModule, BrnCommandImports, HlmCommandImports, Salas],
+  templateUrl: './nav-menu.html',
+  styleUrl: './nav-menu.scss',
 })
-export class Salas implements OnInit {
+export class NavMenu {
+  @Input() sidebarOpen: boolean = true;
 
   router = inject(Router);
   baseService = inject(Baseservice);
+  private auth = inject(AuthService);
+  
   endpoint = 'room';
   public objetos: Rooms[] | any = [];
 
@@ -39,5 +45,9 @@ export class Salas implements OnInit {
         nm_room: nm_room,
       },
     });
+  }
+
+  sair() {
+    this.auth.logout();
   }
 }

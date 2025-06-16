@@ -1,0 +1,34 @@
+  
+ <hlm-command *ngIf="sidebarOpen" class="w-full bg-[hsl(var(--background))]  border-[hsl(var(--secondary))] ">
+   
+  
+    <hlm-command-list>
+      <hlm-command-group>
+        <hlm-command-group-label>Salas</hlm-command-group-label>
+        <div *ngFor="let objeto of objetos" >
+            <button hlm-command-item value="objeto.nm_room" (click)="onOpen(objeto.id_room,objeto.nm_room )" class="w-full  ">
+                <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+                {{objeto.nm_room}}
+            </button>
+        </div>
+      
+      </hlm-command-group>
+  
+      <!-- <hlm-command-separator /> -->
+  
+      <hlm-command-group>
+        <hlm-command-group-label>Opções</hlm-command-group-label>
+  
+        <button hlm-command-item value="Settings"  (click)="sair()">
+          <ng-icon hlm name="lucideCog" hlmCommandIcon />
+          Sair
+          <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
+        </button>
+      </hlm-command-group>
+    </hlm-command-list>
+  
+    <!-- Empty state -->
+    <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+  </hlm-command>
+
+  
