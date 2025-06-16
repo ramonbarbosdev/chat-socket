@@ -53,6 +53,7 @@ export class NavMenu implements OnInit {
   private auth = inject(AuthService);
   private roomEvents = inject(Roomeventservice);
   private cdRef = inject(ChangeDetectorRef);
+  id_usuario!: number;
 
   endpoint = 'room';
   public objetos: Rooms[] | any = [];
@@ -60,18 +61,25 @@ export class NavMenu implements OnInit {
   menu: any;
 
   ngOnInit(): void {
+    console.log(this.auth.getUser());
     this.obterTodasSalas();
+    this.id_usuario = this.auth.getUser().id_usuario;
     this.roomEvents.reload$.subscribe(() => this.obterTodasSalas());
   }
 
   obterTodasSalas() {
-    this.baseService.obterTodos(this.endpoint).subscribe({
-      next: (res) => {
-        this.objetos = res;
-        this.cdRef.detectChanges();
-      },
-      error: () => {},
-    });
+    this.baseService
+      .obterPorId(
+        this.endpoint + '/salas-permitidas',
+        this.auth.getUser().id_usuario
+      )
+      .subscribe({
+        next: (res) => {
+          this.objetos = res;
+          this.cdRef.detectChanges();
+        },
+        error: () => {},
+      });
   }
 
   entrarSala(id_room: number, nm_room: string) {
@@ -87,7 +95,7 @@ export class NavMenu implements OnInit {
     this.baseService.deletar(this.endpoint, id_room).subscribe({
       next: (res: any) => {
         this.obterTodasSalas();
-        this.router.navigate(['/admin/home'])
+        this.router.navigate(['/admin/home']);
       },
       error: (err) => {},
     });
