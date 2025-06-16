@@ -1,34 +1,69 @@
-  
- <hlm-command *ngIf="sidebarOpen" class="w-full bg-[hsl(var(--background))]  border-[hsl(var(--secondary))] ">
-   
-  
-    <hlm-command-list>
-      <hlm-command-group>
-        <hlm-command-group-label>Salas</hlm-command-group-label>
-        <div *ngFor="let objeto of objetos" >
-            <button hlm-command-item value="objeto.nm_room" (click)="onOpen(objeto.id_room,objeto.nm_room )" class="w-full  ">
-                <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
-                {{objeto.nm_room}}
-            </button>
-        </div>
-      
-      </hlm-command-group>
-  
-      <!-- <hlm-command-separator /> -->
-  
-      <hlm-command-group>
-        <hlm-command-group-label>Opções</hlm-command-group-label>
-  
-        <button hlm-command-item value="Settings"  (click)="sair()">
-          <ng-icon hlm name="lucideCog" hlmCommandIcon />
-          Sair
-          <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
+<hlm-command
+  *ngIf="sidebarOpen"
+  class="w-full bg-[hsl(var(--background))] border-[hsl(var(--secondary))]"
+>
+  <hlm-command-list>
+    <hlm-command-group>
+      <hlm-command-group-label>Salas</hlm-command-group-label>
+      <div *ngFor="let objeto of objetos" (contextmenu)="onRightClick($event, objeto)">
+        <button
+          hlm-command-item
+          value="objeto.nm_room"
+          (click)="entrarSala(objeto.id_room,objeto.nm_room )"
+          class="w-full"
+        >
+          <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
+          {{objeto.nm_room}}
         </button>
-      </hlm-command-group>
-    </hlm-command-list>
-  
-    <!-- Empty state -->
-    <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-  </hlm-command>
+      </div>
+    </hlm-command-group>
 
+    <!-- <hlm-command-separator /> -->
+
+    <hlm-command-group>
+      <hlm-command-group-label>Opções</hlm-command-group-label>
+
+      <button title="ajuste" hlm-command-item value="Settings">
+        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        <app-salaform> </app-salaform>
+        <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
+      </button>
+      <button hlm-command-item value="Settings" (click)="sair()">
+        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+        Sair
+        <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
+      </button>
+    </hlm-command-group>
+  </hlm-command-list>
+
+  <!-- Empty state -->
+  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
+</hlm-command>
+
+<div
+  *ngIf="contextMenuVisible"
+  [style.top.px]="contextMenuPosition.y"
+  [style.left.px]="contextMenuPosition.x"
+  class="fixed z-50"
+  (mouseleave)="closeContextMenu()"
+>
+   <hlm-menu>
+    <hlm-menu-label>{{itemSelecionado.nm_room}}</hlm-menu-label>
+    <hlm-menu-separator />
+      <hlm-menu-group>
+        <button hlmMenuItem (click)="entrarSala(itemSelecionado.id_room, itemSelecionado.nm_room)">
+          Abrir
+        </button>
+        <button hlmMenuItem >
+          Compartilhar
+        </button>
   
+        <hlm-menu-separator />
+  
+        <button hlmMenuItem >
+          Excluir
+        </button>
+      </hlm-menu-group>
+    </hlm-menu>
+</div>
+

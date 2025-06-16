@@ -1,14 +1,3 @@
-<!-- <nav *ngIf="sidebarOpen" class="flex flex-col p-4 space-y-2">
-    <a
-      *ngFor="let objeto of objetos"
-      (click)="onOpen(objeto.id_room,objeto.nm_room )"
-      routerLinkActive="bg-zinc-200"
-      class="hover:bg-zinc-100 px-4 py-2 rounded transition-colors duration-200"
-    >
-      {{ objeto.nm_room }}
-    </a>
-  </nav> -->
-  
   <div *ngFor="let objeto of objetos">
     <button  hlm-command-item value="objeto.nm_room" (click)="onOpen(objeto.id_room,objeto.nm_room )">
       <!-- <ng-icon hlm name="lucideCalendar" hlmCommandIcon /> -->
