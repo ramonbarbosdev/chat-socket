@@ -17,30 +17,11 @@
 
    
     <!-- Compartilhar com usuario -->
-    <brn-popover sideOffset="5">
-      <button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn  (click)="obterTodosUsuario()">Convidar</button>
-      <div hlmPopoverContent class="w-80 grid gap-4" *brnPopoverContent="let ctx">
-       
-        <section hlmCard>
-          <div hlmCardHeader>
-            <h3 hlmCardTitle>Convide um amigo</h3>
-            <p hlmCardDescription>Selecione o amigo para sua sala</p>
-          </div>
-          <div hlmCardContent>
-            <app-dropdown
-            [options]="usuarioOpcoes"
-            [placeholder]="'Escolha uma sala...'"
-            [(selected)]="usuarioSelecionado"
-          ></app-dropdown>
-          </div>
-          <div hlmCardFooter class="justify-between">
-            <button hlmBtn variant="ghost">Cancelar</button>
-            <button hlmBtn (click)="enviarConvite()">Enviar</button>
-        </div>
-        </section>
-        
-      </div>
-    </brn-popover>
+    <app-convite-popover
+    [id_room]="id_room"
+    [id_usuariologado]="id_usuario">
+    
+    </app-convite-popover>
 
     <div class="w-1/6 flex justify-end items-center">
       <ng-icon hlm size="base" name="lucideSearch" />
@@ -56,13 +37,13 @@
     <div *ngFor="let msg of messages"  >
     
     <div class=" flex justify-end w-6/6 ">
-      <div *ngIf="msg.id_usuario === userId"  class=" max-w-3/6 min-w-1/6   ">
+      <div *ngIf="msg.id_usuario === id_usuario"  class=" max-w-3/6 min-w-1/6   ">
         <app-caixachat [objeto]="msg" [isLogado]="true"> </app-caixachat>
       </div>
     </div>
 
       <div  class=" flex justify-start w-6/6 ">
-        <div *ngIf="msg.id_usuario !== userId"  class=" max-w-3/6 min-w-1/6   ">
+        <div *ngIf="msg.id_usuario !== id_usuario"  class=" max-w-3/6 min-w-1/6   ">
           <app-caixachat [objeto]="msg" [isLogado]="false"> </app-caixachat>
         </div>
       </div>

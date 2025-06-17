@@ -26,13 +26,9 @@ import { formatarDataHora } from '../../utils/FormatoData';
 import { formatarInicialNome } from '../../utils/InicialNome';
 import { Caixachat } from "../caixachat/caixachat";
 import { Baseservice } from '../../services/baseservice';
-import { Dropdown } from "../dropdown/dropdown";
-import {
-  BrnPopoverComponent,
-  BrnPopoverContentDirective,
-  BrnPopoverTriggerDirective,
-} from '@spartan-ng/brain/popover';
+
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { ConvitePopover } from "../convite-popover/convite-popover";
 
 
 
@@ -52,12 +48,9 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
     Caixachat,
-    Dropdown,
-    BrnPopoverComponent,
-    BrnPopoverTriggerDirective,
-    BrnPopoverContentDirective,
     HlmButtonDirective,
-  ],
+    ConvitePopover
+],
   standalone: true,
   providers: [provideIcons({ lucideSearch })],
   templateUrl: './chat.component.html',
@@ -66,7 +59,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 export class ChatComponent implements OnInit, AfterViewInit {
   messages: Message[] = [];
   messageInput = '';
-  userId: string = '';
+  id_usuario: string = '';
   id_room: string = '';
   nm_room: string = '';
   nomeSalaInicial: string = '';
@@ -83,9 +76,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef
   ) {}
 
-  usuarioOpcoes: any[] = [];
-
-  usuarioSelecionado = '';
 
   @ViewChild('messageContainer') messageContainer?: ElementRef;
 
@@ -103,7 +93,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.userId = this.auth.getUser().id_usuario;
+    this.id_usuario = this.auth.getUser().id_usuario;
 
     this.route.queryParamMap.subscribe((params) => {
       this.id_room = params.get('id_room') ?? '';
@@ -114,16 +104,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
     });
   }
 
-  enviarConvite()
-  {
-    if(!this.usuarioSelecionado) return;
-    const  id_usuario = this.usuarioSelecionado;
-    this.basService.enviarConviteSala(this.id_room, id_usuario).subscribe({
-      next: (res) => {},
-      error: () => {},
-    });
-    
-  }
+ 
 
   enterRoom(roomId: string) {
     this.messages = [];
@@ -139,7 +120,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   sendMessage() {
     const chatmessage: Message = {
       id_chatmessage: 0,
-      id_usuario: this.userId,
+      id_usuario: this.id_usuario,
       timestamp: new Date(),
       message: this.messageInput.trim(),
       nm_usuario: '',
@@ -194,24 +175,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
           this.scrollToBottom();
         }
       });
-  }
-
-
-
-  obterTodosUsuario()
-  {
-    this.basService.obterTodos("usuario").subscribe({
-      next: (res) => {
-        this.usuarioOpcoes = res.map((user: any) => ({
-          label: user.userNome,
-          value: String(user.userId),
-        }));
-        this.cdr.detectChanges();
-      },
-      error: () => {
-        
-      },
-    });
   }
 
   obterNomeUsuario(id_usuario: string): void {

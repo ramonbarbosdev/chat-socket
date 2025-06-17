@@ -1,0 +1,25 @@
+<brn-popover [state]="popoverState()" (stateChanged)="onPopoverStateChange($event)" sideOffset="5">
+
+    <button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn  (click)="obterTodosUsuario()">Convidar</button>
+    <div hlmPopoverContent class="w-80 grid gap-4" *brnPopoverContent="let ctx">
+     
+      <section hlmCard>
+        <div hlmCardHeader>
+          <h3 hlmCardTitle>Convide um amigo</h3>
+          <p hlmCardDescription>Selecione o amigo para sua sala</p>
+        </div>
+        <div hlmCardContent>
+          <app-dropdown
+          [options]="usuarioOpcoes"
+          [placeholder]="'Escolha uma sala...'"
+          [(selected)]="usuarioSelecionado"
+        ></app-dropdown>
+        </div>
+        <div hlmCardFooter class="justify-between">
+            <button hlmBtn variant="ghost" (click)="fecharPopover()">Cancelar</button>
+          <button hlmBtn (click)="enviarConvite()">Enviar</button>
+      </div>
+      </section>
+      
+    </div>
+  </brn-popover>
