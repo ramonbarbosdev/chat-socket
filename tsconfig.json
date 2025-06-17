@@ -39,6 +39,9 @@
       ],
       "@spartan-ng/helm/menu": [
         ".\\libs/ui/ui-menu-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/popover": [
+        ".\\libs/ui/ui-popover-helm/src/index.ts"
       ]
     }
   },

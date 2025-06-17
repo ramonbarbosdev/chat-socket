@@ -1,0 +1,34 @@
+<brn-popover [state]="state()" (stateChanged)="stateChanged($event)" sideOffset="5">
+    <button class="w-[200px] justify-between" variant="outline" brnPopoverTrigger hlmBtn>
+      {{ selectedItem?.label || placeholder }}
+      <ng-icon hlm size="sm" name="lucideChevronsUpDown" />
+    </button>
+  
+    <hlm-command *brnPopoverContent hlmPopoverContent class="p-0 w-[200px]">
+      <hlm-command-search>
+        <ng-icon hlm name="lucideSearch" />
+        <input placeholder="Buscar..." hlm-command-search-input />
+      </hlm-command-search>
+  
+      <div *brnCommandEmpty hlmCommandEmpty>Nenhum resultado.</div>
+  
+      <hlm-command-list>
+        <hlm-command-group>
+          <button
+            *ngFor="let framework of options"
+            hlm-command-item
+            [value]="framework.value"
+            (selected)="commandSelected(framework)"
+          >
+            <ng-icon hlm
+              hlmCommandIcon
+              name="lucideCheck"
+              [class.opacity-0]="selected !== framework.value"
+            />
+            {{ framework.label }}
+          </button>
+        </hlm-command-group>
+      </hlm-command-list>
+    </hlm-command>
+  </brn-popover>
+  

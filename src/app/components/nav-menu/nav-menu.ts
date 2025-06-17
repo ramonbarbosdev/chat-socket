@@ -2,13 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { Salas } from "../salas/salas";
 import { Router } from '@angular/router';
 import { Baseservice } from '../../services/baseservice';
 import { Rooms } from '../../models/rooms';
 import { AuthService } from '../../auth/auth.service';
 import { Salaform } from '../salaform/salaform';
-import { Clickmenusala } from "../clickmenusala/clickmenusala";
 
 import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
 import {
@@ -61,7 +59,6 @@ export class NavMenu implements OnInit {
   menu: any;
 
   ngOnInit(): void {
-    console.log(this.auth.getUser());
     this.obterTodasSalas();
     this.id_usuario = this.auth.getUser().id_usuario;
     this.roomEvents.reload$.subscribe(() => this.obterTodasSalas());

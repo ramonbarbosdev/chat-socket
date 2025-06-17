@@ -26,6 +26,16 @@ import { formatarDataHora } from '../../utils/FormatoData';
 import { formatarInicialNome } from '../../utils/InicialNome';
 import { Caixachat } from "../caixachat/caixachat";
 import { Baseservice } from '../../services/baseservice';
+import { Dropdown } from "../dropdown/dropdown";
+import {
+  BrnPopoverComponent,
+  BrnPopoverContentDirective,
+  BrnPopoverTriggerDirective,
+} from '@spartan-ng/brain/popover';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
+
+
+
 @Component({
   selector: 'app-chat.component',
   imports: [
@@ -42,7 +52,13 @@ import { Baseservice } from '../../services/baseservice';
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
     Caixachat,
+    Dropdown,
+    BrnPopoverComponent,
+    BrnPopoverTriggerDirective,
+    BrnPopoverContentDirective,
+    HlmButtonDirective,
   ],
+  standalone: true,
   providers: [provideIcons({ lucideSearch })],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss',
@@ -67,6 +83,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
     private cdr: ChangeDetectorRef
   ) {}
 
+  usuarioOpcoes: any[] = [];
+
+  usuarioSelecionado = '';
+
   @ViewChild('messageContainer') messageContainer?: ElementRef;
 
   ngAfterViewInit(): void {
@@ -82,8 +102,6 @@ export class ChatComponent implements OnInit, AfterViewInit {
     }, 100);
   }
 
-  //TO:DO - diferenciar cada envio um do outro
-
   ngOnInit(): void {
     this.userId = this.auth.getUser().id_usuario;
 
@@ -94,6 +112,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
       this.enterRoom(this.id_room);
     });
+  }
+
+  enviarConvite()
+  {
+    console.log(this.usuarioSelecionado);
+    if(!this.usuarioSelecionado) return;
+    
   }
 
   enterRoom(roomId: string) {
@@ -135,7 +160,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       }));
 
       this.messages.forEach((msg) => {
-        this.obterNomeUsuario(msg.id_usuario); 
+        this.obterNomeUsuario(msg.id_usuario);
       });
 
       this.cdr.detectChanges();
@@ -165,6 +190,27 @@ export class ChatComponent implements OnInit, AfterViewInit {
           this.scrollToBottom();
         }
       });
+  }
+
+  convidarUsuario()
+  {
+    
+  }
+
+  obterTodosUsuario()
+  {
+    this.basService.obterTodos("usuario").subscribe({
+      next: (res) => {
+        this.usuarioOpcoes = res.map((user: any) => ({
+          label: user.userNome,
+          value: String(user.userId),
+        }));
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        
+      },
+    });
   }
 
   obterNomeUsuario(id_usuario: string): void {
