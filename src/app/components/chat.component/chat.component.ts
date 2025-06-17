@@ -116,8 +116,12 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   enviarConvite()
   {
-    console.log(this.usuarioSelecionado);
     if(!this.usuarioSelecionado) return;
+    const  id_usuario = this.usuarioSelecionado;
+    this.basService.enviarConviteSala(this.id_room, id_usuario).subscribe({
+      next: (res) => {},
+      error: () => {},
+    });
     
   }
 
@@ -192,10 +196,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
       });
   }
 
-  convidarUsuario()
-  {
-    
-  }
+
 
   obterTodosUsuario()
   {

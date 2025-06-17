@@ -32,6 +32,33 @@ export class Baseservice {
     );
   }
 
+  enviarConviteSala(id_room:string ,id_usuario: string): Observable<any> {
+  {
+      const url = `${this.apiUrl}/room/${id_room}/compartilhar/${id_usuario}`;
+      return this.http.get<any>(url).pipe(
+        tap((res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Convite enviado com sucesso!',
+            confirmButtonText: 'OK',
+          });
+          return res;
+        }),
+        catchError((e) => {
+          console.log(e);
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao enviar!',
+            text: e.error.message,
+            confirmButtonText: 'OK',
+          });
+          return throwError(() => e);
+        })
+      );
+    }
+  }
+
   obterTodos(endpoint: string): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}/`;
 
