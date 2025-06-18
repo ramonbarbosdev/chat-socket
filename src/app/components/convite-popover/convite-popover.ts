@@ -14,6 +14,7 @@ import {
 import { AuthService } from '../../auth/auth.service';
 import { Baseservice } from '../../services/baseservice';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
+import { ConviteService } from '../../services/convite.service';
 
 @Component({
   selector: 'app-convite-popover',
@@ -39,9 +40,9 @@ export class ConvitePopover {
   usuarioSelecionado = '';
 
   private auth = inject(AuthService);
-  private basService = inject(Baseservice);
+  private conviteService = inject(ConviteService);
   private cdr = inject(ChangeDetectorRef);
-
+  endpoint = "room"
   public popoverState = signal<'open' | 'closed'>('closed');
 
   onPopoverStateChange(state: 'open' | 'closed') {
@@ -57,23 +58,29 @@ export class ConvitePopover {
     const id_usuario = this.usuarioSelecionado;
     if (this.id_usuariologado == id_usuario)
       return console.log('Voce nao pode convidar a si mesmo');
+
     //Fazer validacao de usuario que ja estão na sala
-    this.basService.enviarConviteSala(this.id_room, id_usuario).subscribe({
+    this.conviteService.enviarConviteSala(this.id_room, id_usuario).subscribe({
       next: (res) => {},
       error: () => {},
     });
   }
 
   obterTodosUsuario() {
-    this.basService.obterTodos('usuario').subscribe({
-      next: (res) => {
-        this.usuarioOpcoes = res.map((user: any) => ({
-          label: user.userNome,
-          value: String(user.userId),
-        }));
-        this.cdr.detectChanges();
-      },
-      error: () => {},
-    });
+
+    let id_usuario = this.auth.getUser().id_usuario;
+    this.conviteService
+      .obterUsuarioDisponivel(this.id_room, id_usuario)
+      .subscribe({
+        next: (res) => {
+          console.log(res)
+          this.usuarioOpcoes = res.map((user: any) => ({
+            label: user.userNome,
+            value: String(user.userId),
+          }));
+          this.cdr.detectChanges();
+        },
+        error: () => {},
+      });
   }
 }

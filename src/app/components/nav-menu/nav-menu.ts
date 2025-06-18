@@ -21,6 +21,7 @@ import {
   HlmSubMenuComponent,
 } from '@spartan-ng/helm/menu';
 import { Roomeventservice } from '../../services/roomeventservice';
+import { RoomService } from '../../services/room.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -51,6 +52,7 @@ export class NavMenu implements OnInit {
   private auth = inject(AuthService);
   private roomEvents = inject(Roomeventservice);
   private cdRef = inject(ChangeDetectorRef);
+  private roomService = inject(RoomService);
   id_usuario!: number;
 
   endpoint = 'room';
@@ -86,6 +88,31 @@ export class NavMenu implements OnInit {
         nm_room: nm_room,
       },
     });
+  }
+
+  async sairSala(id_room: number) {
+    
+    const fl_responsavel = await this.verificarResponsavel(id_room);
+    console.log(fl_responsavel);
+    if (fl_responsavel) {
+      //se ele for ele vai excluir a sala
+      this.excluirSala(id_room);
+    } else {
+      //se nao for ele vai apagar do room_usuario
+    }
+  }
+
+  async verificarResponsavel(id_room: number): Promise<boolean> {
+    try {
+      const res: any = await this.roomService
+        .verificarResponsavelSala(String(this.id_usuario), String(id_room))
+        .toPromise();
+
+      return res.fl_responsavel;
+    } catch (err) {
+      console.error('Erro ao verificar responsável', err);
+      return false;
+    }
   }
 
   excluirSala(id_room: number) {
