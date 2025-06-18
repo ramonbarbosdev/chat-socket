@@ -93,12 +93,11 @@ export class NavMenu implements OnInit {
   async sairSala(id_room: number) {
     
     const fl_responsavel = await this.verificarResponsavel(id_room);
-    console.log(fl_responsavel);
     if (fl_responsavel) {
       //se ele for ele vai excluir a sala
       this.excluirSala(id_room);
     } else {
-      //se nao for ele vai apagar do room_usuario
+      await this.removerUsuarioSala(id_room);
     }
   }
 
@@ -108,6 +107,20 @@ export class NavMenu implements OnInit {
         .verificarResponsavelSala(String(this.id_usuario), String(id_room))
         .toPromise();
 
+      return res.fl_responsavel;
+    } catch (err) {
+      console.error('Erro ao verificar responsável', err);
+      return false;
+    }
+  }
+
+  async removerUsuarioSala(id_room: number): Promise<boolean> {
+    try {
+      const res: any = await this.roomService
+        .removerUsuario(String(this.id_usuario), String(id_room))
+        .toPromise();
+        this.obterTodasSalas();
+        this.router.navigate(['/admin/home']);
       return res.fl_responsavel;
     } catch (err) {
       console.error('Erro ao verificar responsável', err);
