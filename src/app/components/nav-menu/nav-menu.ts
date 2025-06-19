@@ -8,21 +8,16 @@ import { Rooms } from '../../models/rooms';
 import { AuthService } from '../../auth/auth.service';
 import { Salaform } from '../salaform/salaform';
 
-import { BrnMenuTriggerDirective } from '@spartan-ng/brain/menu';
-import {
-  HlmMenuComponent,
-  HlmMenuGroupComponent,
-  HlmMenuItemDirective,
-  HlmMenuItemIconDirective,
-  HlmMenuItemSubIndicatorComponent,
-  HlmMenuLabelComponent,
-  HlmMenuSeparatorComponent,
-  HlmMenuShortcutComponent,
-  HlmSubMenuComponent,
-} from '@spartan-ng/helm/menu';
 import { Roomeventservice } from '../../services/roomeventservice';
 import { RoomService } from '../../services/room.service';
-
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
+import {
+  lucideLogOut,
+  lucideCircleFadingPlus,
+  lucideCalendar,
+  lucideBox,
+} from '@ng-icons/lucide';
 @Component({
   selector: 'app-nav-menu',
   imports: [
@@ -30,16 +25,16 @@ import { RoomService } from '../../services/room.service';
     BrnCommandImports,
     HlmCommandImports,
     Salaform,
-    HlmMenuComponent,
-    HlmMenuGroupComponent,
-    HlmMenuItemDirective,
-    HlmMenuItemIconDirective,
-    HlmMenuItemSubIndicatorComponent,
-    HlmMenuLabelComponent,
-    HlmMenuSeparatorComponent,
-    HlmMenuShortcutComponent,
-    HlmSubMenuComponent,
-    BrnMenuTriggerDirective,
+    NgIcon,
+    HlmIconDirective,
+  ],
+  providers: [
+    provideIcons({
+      lucideLogOut,
+      lucideCircleFadingPlus,
+      lucideCalendar,
+      lucideBox,
+    }),
   ],
   templateUrl: './nav-menu.html',
   styleUrl: './nav-menu.scss',
@@ -91,10 +86,8 @@ export class NavMenu implements OnInit {
   }
 
   async sairSala(id_room: number) {
-    
     const fl_responsavel = await this.verificarResponsavel(id_room);
     if (fl_responsavel) {
-      //se ele for ele vai excluir a sala
       this.excluirSala(id_room);
     } else {
       await this.removerUsuarioSala(id_room);
@@ -119,8 +112,8 @@ export class NavMenu implements OnInit {
       const res: any = await this.roomService
         .removerUsuario(String(this.id_usuario), String(id_room))
         .toPromise();
-        this.obterTodasSalas();
-        this.router.navigate(['/admin/home']);
+      this.obterTodasSalas();
+      this.router.navigate(['/admin/home']);
       return res.fl_responsavel;
     } catch (err) {
       console.error('Erro ao verificar responsável', err);
@@ -128,7 +121,9 @@ export class NavMenu implements OnInit {
     }
   }
 
-  excluirSala(id_room: number) {
+  excluirSala(id_room: number)
+  {
+    
     this.baseService.deletar(this.endpoint, id_room).subscribe({
       next: (res: any) => {
         this.obterTodasSalas();

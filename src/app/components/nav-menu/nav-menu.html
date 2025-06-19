@@ -1,69 +1,74 @@
-<hlm-command
+<!-- sidebar.component.html -->
+<div
   *ngIf="sidebarOpen"
-  class="w-full  bg-[hsl(var(--background))] border-[hsl(var(--secondary))]"
+  class="w-full h-screen max-h-screen bg-white border border-gray-200 shadow-md overflow-y-auto p-4"
 >
-  <hlm-command-list >
-    <hlm-command-group>
-      <hlm-command-group-label>Salas</hlm-command-group-label>
-      <div *ngFor="let objeto of objetos" (contextmenu)="onRightClick($event, objeto)">
-        <button
-          hlm-command-item
-          value="objeto.nm_room"
-          (click)="entrarSala(objeto.id_room,objeto.nm_room )"
-          class="w-full"
-        >
-          <ng-icon hlm name="lucideCalendar" hlmCommandIcon />
-          {{objeto.nm_room}}
-        </button>
-      </div>
-    </hlm-command-group>
-
-    <!-- <hlm-command-separator /> -->
-
-    <hlm-command-group>
-      <hlm-command-group-label>Opções</hlm-command-group-label>
-
-      <button title="ajuste" hlm-command-item value="Settings">
-        <ng-icon hlm name="lucideCog" hlmCommandIcon />
-        <app-salaform> </app-salaform>
-        <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
+  <!-- Grupo: Salas -->
+  <div class="mb-6">
+    <h2 class="text-sm font-semibold text-gray-600 mb-2">Salas</h2>
+    <div *ngFor="let objeto of objetos" (contextmenu)="onRightClick($event, objeto)">
+      <button
+        (click)="entrarSala(objeto.id_room, objeto.nm_room)"
+        class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
+      >
+        <span class="inline-flex items-center gap-2">
+          <ng-icon name="lucideBox" />
+          {{ objeto.nm_room }}
+        </span>
       </button>
-      <button hlm-command-item value="Settings" (click)="sair()">
-        <ng-icon hlm name="lucideCog" hlmCommandIcon />
+    </div>
+  </div>
+
+  <!-- Grupo: Opções -->
+  <div class="mt-4">
+    <h2 class="text-sm font-semibold text-gray-600 mb-2">Opções</h2>
+
+    <button
+      title="Ajuste"
+      class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
+    >
+      <span class="inline-flex items-center gap-2">
+        <ng-icon name="lucideCircleFadingPlus" />
+        <app-salaform></app-salaform>
+      </span>
+    </button>
+
+    <button
+      (click)="sair()"
+      class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
+    >
+      <span class="inline-flex items-center gap-2">
+        <ng-icon hlm size='sm' name="lucideLogOut" />
         Sair
-        <!-- <hlm-command-shortcut>⌘S</hlm-command-shortcut> -->
-      </button>
-    </hlm-command-group>
-  </hlm-command-list>
+      </span>
+    </button>
+  </div>
+</div>
 
-  <!-- Empty state -->
-  <div *brnCommandEmpty hlmCommandEmpty>No results found.</div>
-</hlm-command>
-
+<!-- Context Menu -->
 <div
   *ngIf="contextMenuVisible"
   [style.top.px]="contextMenuPosition.y"
   [style.left.px]="contextMenuPosition.x"
-  class="fixed z-50"
+  class="fixed z-50 bg-white border rounded shadow-lg p-2 w-48"
   (mouseleave)="closeContextMenu()"
 >
-   <hlm-menu>
-    <hlm-menu-label>{{itemSelecionado.nm_room}}</hlm-menu-label>
-    <hlm-menu-separator />
-      <hlm-menu-group>
-        <button hlmMenuItem (click)="entrarSala(itemSelecionado.id_room, itemSelecionado.nm_room)">
-          Abrir
-        </button>
-        <button hlmMenuItem >
-          Compartilhar
-        </button>
-  
-        <hlm-menu-separator />
-  
-        <button (click)="sairSala(itemSelecionado.id_room)" hlmMenuItem >
-          Sair
-        </button>
-      </hlm-menu-group>
-    </hlm-menu>
+  <div class="text-sm font-semibold mb-1">{{ itemSelecionado?.nm_room }}</div>
+  <hr class="my-1" />
+  <button
+    (click)="entrarSala(itemSelecionado.id_room, itemSelecionado.nm_room)"
+    class="block w-full text-left px-2 py-1 hover:bg-gray-100"
+  >
+    Abrir
+  </button>
+  <button class="block w-full text-left px-2 py-1 hover:bg-gray-100">
+    Compartilhar
+  </button>
+  <hr class="my-1" />
+  <button
+    (click)="sairSala(itemSelecionado.id_room)"
+    class="block w-full text-left px-2 py-1 text-red-600 hover:bg-red-50"
+  >
+    Sair
+  </button>
 </div>
-
