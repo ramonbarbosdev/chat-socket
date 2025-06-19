@@ -107,18 +107,18 @@ export class NavMenu implements OnInit {
     }
   }
 
-  async removerUsuarioSala(id_room: number): Promise<boolean> {
-    try {
-      const res: any = await this.roomService
-        .removerUsuario(String(this.id_usuario), String(id_room))
-        .toPromise();
-      this.obterTodasSalas();
-      this.router.navigate(['/admin/home']);
-      return res.fl_responsavel;
-    } catch (err) {
-      console.error('Erro ao verificar responsável', err);
-      return false;
-    }
+  async removerUsuarioSala(id_room: number){
+
+    this.roomService
+      .removerUsuario(String(this.id_usuario), String(id_room))
+      .subscribe({
+        next: (res: any) => {
+          this.obterTodasSalas();
+          this.router.navigate(['/admin/home']);
+        },
+        error: (err) => {},
+      });
+    
   }
 
   excluirSala(id_room: number)
