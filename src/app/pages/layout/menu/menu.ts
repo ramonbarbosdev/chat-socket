@@ -11,7 +11,6 @@ import {
   HlmAvatarImageDirective,
 } from '@spartan-ng/helm/avatar';
 import { AuthService } from '../../../auth/auth.service';
-import { Salaform } from "../../../components/salaform/salaform";
 import { formatarInicialNome } from '../../../utils/InicialNome';
 import { NavMenu } from "../../../components/nav-menu/nav-menu";
 
@@ -27,7 +26,6 @@ import { NavMenu } from "../../../components/nav-menu/nav-menu";
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-    Salaform,
     NavMenu
 ],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],

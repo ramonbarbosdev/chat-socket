@@ -76,11 +76,10 @@ export class NavMenu implements OnInit {
       });
   }
 
-  entrarSala(id_room: number, nm_room: string) {
+  entrarSala(item: any) {
     this.router.navigate(['/admin/chat'], {
       queryParams: {
-        id_room: id_room,
-        nm_room: nm_room,
+        id_room: item.id_room,        
       },
     });
   }

@@ -62,6 +62,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   id_usuario: string = '';
   id_room: string = '';
   nm_room: string = '';
+  nm_criador: string = '';
   nomeSalaInicial: string = '';
   messageList: any[] = [];
   private messageSubscription?: Subscription;
@@ -97,11 +98,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this.route.queryParamMap.subscribe((params) => {
       this.id_room = params.get('id_room') ?? '';
-      this.nm_room = params.get('nm_room') ?? '';
-      this.nomeSalaInicial = formatarInicialNome(this.nm_room);
+
 
       this.enterRoom(this.id_room);
     });
+
+    this.obterDadosSala(this.id_room);
+
   }
 
  
@@ -175,6 +178,18 @@ export class ChatComponent implements OnInit, AfterViewInit {
           this.scrollToBottom();
         }
       });
+  }
+
+  obterDadosSala(id_room: string): void
+  {
+
+    this.basService.obterPorId('room', Number(id_room)).subscribe({
+      next: (res) => {
+        this.nomeSalaInicial = formatarInicialNome(res.nm_room);;
+        this.nm_room = res.nm_room;
+        this.nm_criador = res.nm_usuario;
+      },
+    });
   }
 
   obterNomeUsuario(id_usuario: string): void {

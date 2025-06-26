@@ -8,7 +8,7 @@
     <h2 class="text-sm font-semibold text-gray-600 mb-2">Salas</h2>
     <div *ngFor="let objeto of objetos" (contextmenu)="onRightClick($event, objeto)">
       <button
-        (click)="entrarSala(objeto.id_room, objeto.nm_room)"
+        (click)="entrarSala(objeto)"
         class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
       >
         <span class="inline-flex items-center gap-2">
@@ -56,7 +56,7 @@
   <div class="text-sm font-semibold mb-1">{{ itemSelecionado?.nm_room }}</div>
   <hr class="my-1" />
   <button
-    (click)="entrarSala(itemSelecionado.id_room, itemSelecionado.nm_room)"
+    (click)="entrarSala(itemSelecionado)"
     class="block w-full text-left px-2 py-1 hover:bg-gray-100"
   >
     Abrir
