@@ -37,6 +37,11 @@ export class ChatService {
     this.stompClient.onConnect = (frame) => {
       this.connected = true;
       console.log('Conectado ao WebSocket');
+
+      this.stompClient.subscribe('/topic/salas', () => {
+        this.salasSubject.next(); // Emitir evento
+      });
+
       if (this.currentRoomId) this.subscribeToRoom(this.currentRoomId);
     };
 
@@ -45,6 +50,12 @@ export class ChatService {
     };
 
     this.stompClient.activate();
+  }
+
+  //captar o back quando deletar
+  private salasSubject = new Subject<void>();
+  getSalasUpdates(): Observable<void> {
+    return this.salasSubject.asObservable();
   }
 
   subscribeToRoom(roomId: string) {
@@ -72,9 +83,7 @@ export class ChatService {
   }
 
   sendHistory(roomId: string): Observable<Message[]> {
-    return this.http.get<Message[]>(
-      `${environment.apiUrl}/history/${roomId}`
-    );
+    return this.http.get<Message[]>(`${environment.apiUrl}/history/${roomId}`);
   }
 
   getMessages(roomId: string): Observable<Message> {

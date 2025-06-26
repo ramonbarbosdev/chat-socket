@@ -18,6 +18,7 @@ import {
   lucideCalendar,
   lucideBox,
 } from '@ng-icons/lucide';
+import { ChatService } from '../../services/chat.service';
 @Component({
   selector: 'app-nav-menu',
   imports: [
@@ -48,6 +49,7 @@ export class NavMenu implements OnInit {
   private roomEvents = inject(Roomeventservice);
   private cdRef = inject(ChangeDetectorRef);
   private roomService = inject(RoomService);
+  private chatService = inject(ChatService);
   id_usuario!: number;
 
   endpoint = 'room';
@@ -59,6 +61,11 @@ export class NavMenu implements OnInit {
     this.obterTodasSalas();
     this.id_usuario = this.auth.getUser().id_usuario;
     this.roomEvents.reload$.subscribe(() => this.obterTodasSalas());
+
+    //ouvir o back quando deletar
+    this.chatService.getSalasUpdates().subscribe(() => {
+      this.obterTodasSalas();
+    });
   }
 
   obterTodasSalas() {
@@ -79,7 +86,7 @@ export class NavMenu implements OnInit {
   entrarSala(item: any) {
     this.router.navigate(['/admin/chat'], {
       queryParams: {
-        id_room: item.id_room,        
+        id_room: item.id_room,
       },
     });
   }
@@ -106,8 +113,7 @@ export class NavMenu implements OnInit {
     }
   }
 
-  async removerUsuarioSala(id_room: number){
-
+  async removerUsuarioSala(id_room: number) {
     this.roomService
       .removerUsuario(String(this.id_usuario), String(id_room))
       .subscribe({
@@ -117,12 +123,9 @@ export class NavMenu implements OnInit {
         },
         error: (err) => {},
       });
-    
   }
 
-  excluirSala(id_room: number)
-  {
-    
+  excluirSala(id_room: number) {
     this.baseService.deletar(this.endpoint, id_room).subscribe({
       next: (res: any) => {
         this.obterTodasSalas();

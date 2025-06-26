@@ -14,6 +14,8 @@ import { AuthService } from '../../../auth/auth.service';
 import { formatarInicialNome } from '../../../utils/InicialNome';
 import { NavMenu } from "../../../components/nav-menu/nav-menu";
 
+
+
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -34,7 +36,7 @@ import { NavMenu } from "../../../components/nav-menu/nav-menu";
 })
 export class Menu implements OnInit {
   private auth = inject(AuthService);
-  sidebarOpen = false;
+  sidebarOpen = true;
   nm_usuario = '';
   nm_cargo = '';
   nm_inicial = '';
