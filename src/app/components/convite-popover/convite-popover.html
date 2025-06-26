@@ -1,6 +1,6 @@
 <brn-popover [state]="popoverState()" (stateChanged)="onPopoverStateChange($event)" sideOffset="5">
 
-    <button id="edit-profile" variant="outline" brnPopoverTrigger hlmBtn  (click)="obterTodosUsuario()">Convidar</button>
+    <button title="convidar" id="edit-profile" variant="ghost" brnPopoverTrigger hlmBtn  (click)="obterTodosUsuario()"> <ng-icon hlm size='base' name="lucideShare2" /></button>
     <div hlmPopoverContent class="w-80 grid gap-4" *brnPopoverContent="let ctx">
      
       <section hlmCard>

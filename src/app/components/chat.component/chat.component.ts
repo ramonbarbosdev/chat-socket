@@ -3,7 +3,7 @@ import { ChatService } from '../../services/chat.service';
 import { Message } from '../../models/message';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   HlmCardContentDirective,
   HlmCardDirective,
@@ -49,8 +49,8 @@ import { ConvitePopover } from "../convite-popover/convite-popover";
     HlmAvatarFallbackDirective,
     Caixachat,
     HlmButtonDirective,
-    ConvitePopover
-],
+    ConvitePopover,
+  ],
   standalone: true,
   providers: [provideIcons({ lucideSearch })],
   templateUrl: './chat.component.html',
@@ -63,6 +63,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   id_room: string = '';
   nm_room: string = '';
   nm_criador: string = '';
+  id_criador: string = '';
   nomeSalaInicial: string = '';
   messageList: any[] = [];
   private messageSubscription?: Subscription;
@@ -70,13 +71,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
   private auth = inject(AuthService);
   private basService = inject(Baseservice);
   private nomeCache = new Map<string, string>();
+  router = inject(Router);
 
   constructor(
     private chatService: ChatService,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
-
 
   @ViewChild('messageContainer') messageContainer?: ElementRef;
 
@@ -99,15 +100,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
     this.route.queryParamMap.subscribe((params) => {
       this.id_room = params.get('id_room') ?? '';
 
-
       this.enterRoom(this.id_room);
     });
 
     this.obterDadosSala(this.id_room);
-
   }
-
- 
 
   enterRoom(roomId: string) {
     this.messages = [];
@@ -180,14 +177,18 @@ export class ChatComponent implements OnInit, AfterViewInit {
       });
   }
 
-  obterDadosSala(id_room: string): void
-  {
-
+  obterDadosSala(id_room: string): void {
     this.basService.obterPorId('room', Number(id_room)).subscribe({
       next: (res) => {
-        this.nomeSalaInicial = formatarInicialNome(res.nm_room);;
+        this.nomeSalaInicial = formatarInicialNome(res.nm_room);
         this.nm_room = res.nm_room;
+        this.id_criador = res.id_usuario;
         this.nm_criador = res.nm_usuario;
+        this.cdr.detectChanges();
+      },
+      error: (e) => {
+        this.router.navigate(['/admin/home']);
+        this.cdr.detectChanges();
       },
     });
   }

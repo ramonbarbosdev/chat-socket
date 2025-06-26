@@ -15,6 +15,9 @@ import { AuthService } from '../../auth/auth.service';
 import { Baseservice } from '../../services/baseservice';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { ConviteService } from '../../services/convite.service';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideShare2 } from '@ng-icons/lucide';
+import { HlmIconDirective } from '@spartan-ng/helm/icon';
 
 @Component({
   selector: 'app-convite-popover',
@@ -28,9 +31,12 @@ import { ConviteService } from '../../services/convite.service';
     HlmCardFooterDirective,
     HlmCardHeaderDirective,
     HlmButtonDirective,
+    NgIcon,
+    HlmIconDirective,
   ],
   templateUrl: './convite-popover.html',
   styleUrl: './convite-popover.scss',
+  providers: [provideIcons({ lucideShare2 })],
 })
 export class ConvitePopover {
   @Input() id_room: any;
@@ -42,7 +48,7 @@ export class ConvitePopover {
   private auth = inject(AuthService);
   private conviteService = inject(ConviteService);
   private cdr = inject(ChangeDetectorRef);
-  endpoint = "room"
+  endpoint = 'room';
   public popoverState = signal<'open' | 'closed'>('closed');
 
   onPopoverStateChange(state: 'open' | 'closed') {
@@ -67,13 +73,12 @@ export class ConvitePopover {
   }
 
   obterTodosUsuario() {
-
     let id_usuario = this.auth.getUser().id_usuario;
     this.conviteService
       .obterUsuarioDisponivel(this.id_room, id_usuario)
       .subscribe({
         next: (res) => {
-          console.log(res)
+          console.log(res);
           this.usuarioOpcoes = res.map((user: any) => ({
             label: user.userNome,
             value: String(user.userId),
