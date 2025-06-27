@@ -12,36 +12,37 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
+    "baseUrl": ".",
     "paths": {
       "@spartan-ng/helm/button": [
-        ".\\libs/ui/ui-button-helm/src/index.ts"
+        "libs/ui/ui-button-helm/src/index.ts"
       ],
       "@spartan-ng/helm/icon": [
-        ".\\libs/ui/ui-icon-helm/src/index.ts"
+        "libs/ui/ui-icon-helm/src/index.ts"
       ],
       "@spartan-ng/helm/avatar": [
-        ".\\libs/ui/ui-avatar-helm/src/index.ts"
+        "libs/ui/ui-avatar-helm/src/index.ts"
       ],
       "@spartan-ng/helm/card": [
-        ".\\libs/ui/ui-card-helm/src/index.ts"
+        "libs/ui/ui-card-helm/src/index.ts"
       ],
       "@spartan-ng/helm/input": [
-        ".\\libs/ui/ui-input-helm/src/index.ts"
+        "libs/ui/ui-input-helm/src/index.ts"
       ],
       "@spartan-ng/helm/form-field": [
-        ".\\libs/ui/ui-form-field-helm/src/index.ts"
+        "libs/ui/ui-form-field-helm/src/index.ts"
       ],
       "@spartan-ng/helm/sheet": [
-        ".\\libs/ui/ui-sheet-helm/src/index.ts"
+        "libs/ui/ui-sheet-helm/src/index.ts"
       ],
       "@spartan-ng/helm/command": [
-        ".\\libs/ui/ui-command-helm/src/index.ts"
+        "libs/ui/ui-command-helm/src/index.ts"
       ],
       "@spartan-ng/helm/menu": [
-        ".\\libs/ui/ui-menu-helm/src/index.ts"
+        "libs/ui/ui-menu-helm/src/index.ts"
       ],
       "@spartan-ng/helm/popover": [
-        ".\\libs/ui/ui-popover-helm/src/index.ts"
+        "libs/ui/ui-popover-helm/src/index.ts"
       ]
     }
   },

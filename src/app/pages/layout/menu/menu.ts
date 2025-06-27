@@ -24,7 +24,6 @@ import { NavMenu } from "../../../components/nav-menu/nav-menu";
     CommonModule,
     HlmButtonModule,
     HlmIconDirective,
-    NgIcon,
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
