@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: chat-socket-frontend
+    buildCommand: cd chat-socket && npm install && npx ng build --configuration=production
+    staticPublishPath: chat-socket/dist/chat-socket
+    buildFilter: 
+      paths: 
+        - chat-socket/**
+    envVars:
+      - key: NODE_ENV
+        value: production
