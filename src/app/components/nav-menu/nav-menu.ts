@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
 import { Router } from '@angular/router';
@@ -42,6 +42,7 @@ import { ChatService } from '../../services/chat.service';
 })
 export class NavMenu implements OnInit {
   @Input() sidebarOpen: boolean = true;
+  @Output() closeSidebar = new EventEmitter<void>();
 
   router = inject(Router);
   baseService = inject(Baseservice);
@@ -58,17 +59,20 @@ export class NavMenu implements OnInit {
   menu: any;
 
   ngOnInit(): void {
-    this.obterTodasSalas();
+    this.carregarSalas();
     this.id_usuario = this.auth.getUser().id_usuario;
-    this.roomEvents.reload$.subscribe(() => this.obterTodasSalas());
+    this.roomEvents.reload$.subscribe(() => this.carregarSalas());
 
     //ouvir o back quando deletar
     this.chatService.getSalasUpdates().subscribe(() => {
-      this.obterTodasSalas();
+      this.carregarSalas();
+      this.router.navigate(['/admin/home']);
     });
   }
 
-  obterTodasSalas() {
+
+
+  carregarSalas() {
     this.baseService
       .obterPorId(
         this.endpoint + '/salas-permitidas',
@@ -89,6 +93,7 @@ export class NavMenu implements OnInit {
         id_room: item.id_room,
       },
     });
+    this.closeSidebar.emit();
   }
 
   async sairSala(id_room: number) {
@@ -98,6 +103,7 @@ export class NavMenu implements OnInit {
     } else {
       await this.removerUsuarioSala(id_room);
     }
+    this.closeSidebar.emit();
   }
 
   async verificarResponsavel(id_room: number): Promise<boolean> {
@@ -118,7 +124,7 @@ export class NavMenu implements OnInit {
       .removerUsuario(String(this.id_usuario), String(id_room))
       .subscribe({
         next: (res: any) => {
-          this.obterTodasSalas();
+          this.carregarSalas();
           this.router.navigate(['/admin/home']);
         },
         error: (err) => {},
@@ -128,7 +134,7 @@ export class NavMenu implements OnInit {
   excluirSala(id_room: number) {
     this.baseService.deletar(this.endpoint, id_room).subscribe({
       next: (res: any) => {
-        this.obterTodasSalas();
+        this.carregarSalas();
         this.router.navigate(['/admin/home']);
       },
       error: (err) => {},
