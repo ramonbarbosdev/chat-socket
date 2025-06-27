@@ -1,4 +1,4 @@
-<hlm-sheet side="right">
+<hlm-sheet  [state]="popoverState()" (stateChanged)="onPopoverStateChange($event)" side="right">
     <button id="edit-profile" variant="ghost" brnSheetTrigger >Nova Sala</button>
    
    

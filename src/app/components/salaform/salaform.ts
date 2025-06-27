@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   BrnSheetContentDirective,
   BrnSheetTriggerDirective,
@@ -45,6 +45,12 @@ export class Salaform implements OnInit {
   router = inject(Router);
   private roomEvents = inject(Roomeventservice);
 
+  public popoverState = signal<'open' | 'closed'>('closed');
+
+  onPopoverStateChange(state: 'open' | 'closed') {
+    this.popoverState.set(state);
+  }
+
   ngOnInit(): void {
     this.userId = this.auth.getUser().id_usuario ?? null;
   }
@@ -54,6 +60,7 @@ export class Salaform implements OnInit {
     this.baseService.cadastrar(this.endpoint, this.objeto).subscribe({
       next: (res: any) => {
         this.roomEvents.emitReloadRoom();
+        this.popoverState.set('closed');
       },
       error: (err) => {},
     });
