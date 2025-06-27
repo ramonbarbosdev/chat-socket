@@ -1,0 +1,938 @@
+{
+  "": {
+    "root": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "projectType": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "sourceRoot": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "prefix": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "name": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "generators": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "generators.@schematics/angular:component": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "generators.@schematics/angular:component.style": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.executor": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.defaultConfiguration": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options.browser": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options.tsConfig": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options.inlineStyleLanguage": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options.assets": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.options.styles": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.production": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.production.budgets": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.production.outputHashing": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.development": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.development.optimization": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.development.extractLicenses": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.build.configurations.development.sourceMap": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.executor": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.configurations": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.defaultConfiguration": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.configurations.production": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.configurations.production.buildTarget": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.configurations.development": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.serve.configurations.development.buildTarget": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.extract-i18n": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.extract-i18n.executor": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.executor": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.options": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.options.tsConfig": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.options.inlineStyleLanguage": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.options.assets": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ],
+    "targets.test.options.styles": [
+      "angular.json",
+      "nx-angular-json-plugin"
+    ]
+  },
+  "libs/brain": {
+    "root": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageExports": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "libs/brain/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "prefix": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.scope:brain": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.defaultConfiguration": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.project": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production.tsConfig": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development.tsConfig": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.executor": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options.libName": [
+      "libs/brain/project.json",
+      "nx/core/project-json"
+    ]
+  },
+  "libs/cli": {
+    "root": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "libs/cli/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.scope:cli": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.executor": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options.libName": [
+      "libs/cli/project.json",
+      "nx/core/project-json"
+    ]
+  },
+  "libs/helm": {
+    "root": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "libs/helm/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "prefix": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "release": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.scope:helm": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.defaultConfiguration": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.project": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production.tsConfig": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development.tsConfig": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.executor": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options.libName": [
+      "libs/helm/project.json",
+      "nx/core/project-json"
+    ]
+  },
+  "libs/tools": {
+    "root": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:private": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "libs/tools/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.outputPath": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.main": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.tsConfig": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.assets": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.executor": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.outputs": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.test.options.jestConfig": [
+      "libs/tools/project.json",
+      "nx/core/project-json"
+    ]
+  },
+  "libs/trpc": {
+    "root": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "name": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "tags": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:public": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:angular": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:trpc": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:remote-procedure-call": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "tags.npm:meta-framework": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.description": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.packageName": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.js.isInPackageManagerWorkspaces": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "targets": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.executor": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.dependsOn": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.nx-release-publish.options": [
+      "libs/trpc/package.json",
+      "nx/core/package-json"
+    ],
+    "$schema": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "sourceRoot": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "prefix": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "projectType": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "tags.trpc": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.executor": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.outputs": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.defaultConfiguration": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.options.project": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.production.tsConfig": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.build.configurations.development.tsConfig": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.executor": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.lint.outputs": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.executor": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ],
+    "targets.release.options.libName": [
+      "libs/trpc/project.json",
+      "nx/core/project-json"
+    ]
+  }
+}
