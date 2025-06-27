@@ -20,11 +20,18 @@
 
     <!-- Sidebar com largura dinâmica -->
     <div
-      class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] shadow-lg transition-all duration-300 ease-in-out flex flex-col"
+      class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
+       shadow-lg transition-all duration-300 ease-in-out flex flex-col
+       fixed inset-y-0 left-0 z-40 
+       transform-translate-x-full
+       md:translate-x-0 md:relative md:w-64"
       [ngClass]="{
-        'w-64': sidebarOpen,
+        'md:w-64' :sidebarOpen,
+        'w-full': sidebarOpen,
+        'md:12' : !sidebarOpen,
         'w-12': !sidebarOpen
       }"
+
     >
       <!-- Header do Sidebar -->
       <div class="flex items-center justify-between p-4  border-gray-700" *ngIf="sidebarOpen">
@@ -63,7 +70,7 @@
     </div>
 
     <!-- Conteúdo principal -->
-    <div class="flex-1 p-4 transition-all duration-300 ease-in-out">
+    <div class="flex-1 p-4 transition-all duration-300 ease-in-out ml-10 md:ml-0 ">
       <router-outlet></router-outlet>
     </div>
   </div>

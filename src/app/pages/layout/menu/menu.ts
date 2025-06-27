@@ -45,6 +45,9 @@ export class Menu implements OnInit {
     this.nm_usuario = this.auth.getUser().nm_usuario;
     this.nm_cargo = 'Usuario';
     this.nm_inicial = formatarInicialNome(this.nm_usuario);
+
+    window.innerWidth < 768 ? this.sidebarOpen = false :   this.sidebarOpen = true
+
   }
 
   toggleSidebar() {
