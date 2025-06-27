@@ -1,77 +1,65 @@
 <!-- Wrapper da página -->
-<div class="h-screen flex flex-col">
+<div class="h-screen flex">
 
-  <!-- Topbar -->
-  <!-- <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] border-b border-[hsl(var(--secondary))]">
-    <div class="flex justify-start p-3">
-      <div class="mr-4">
-        <button hlm variant="ghost" (click)="toggleSidebar()" class="text-center">
-          <ng-icon hlm size="sm" name="lucidePanelRightClose" />
-        </button>
-      </div>
-      <div>
-        <p>Início</p>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- Corpo principal com sidebar e conteúdo -->
-  <div class="flex flex-1 overflow-hidden">
-
-    <!-- Sidebar com largura dinâmica -->
-    <div
-      class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
-       shadow-lg transition-all duration-300 ease-in-out flex flex-col
-       fixed inset-y-0 left-0 z-40 
-       transform-translate-x-full
-       md:translate-x-0 md:relative md:w-64"
-      [ngClass]="{
-        'md:w-64' :sidebarOpen,
-        'w-full': sidebarOpen,
-        'md:12' : !sidebarOpen,
-        'w-12': !sidebarOpen
-      }"
-
-    >
-      <!-- Header do Sidebar -->
-      <div class="flex items-center justify-between p-4  border-gray-700" *ngIf="sidebarOpen">
-        <!-- Avatar -->
-        <div class="flex">
-          <hlm-avatar variant="large">
-            <img src="" alt="Avatar" hlmAvatarImage />
-            <span class="bg-[hsl(var(--foreground))] text-white" hlmAvatarFallback>{{nm_inicial}}</span>
-          </hlm-avatar>
-          <div class="flex flex-col ml-2">
-            <span class="text-base font-bold">{{nm_usuario}}</span>
-            <span class="text-sm font-medium">{{nm_cargo}}</span>
-          </div>
+  <!-- Sidebar com largura dinâmica -->
+  <div
+    class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))]
+     shadow-lg transition-all duration-300 ease-in-out flex flex-col
+     fixed inset-y-0 left-0 z-40 
+     transform-translate-x-full
+     md:translate-x-0 md:relative md:w-64"
+    [ngClass]="{
+      'md:w-64': sidebarOpen,
+      'w-4/6': sidebarOpen,
+      'md:w-0': !sidebarOpen,
+      'w-0': !sidebarOpen
+    }"
+  >
+    <!-- Header do Sidebar -->
+    <div class="flex items-center justify-between p-4 border-gray-700" *ngIf="sidebarOpen">
+      <div class="flex">
+        <hlm-avatar variant="large">
+          <img src="" alt="Avatar" hlmAvatarImage />
+          <span class="bg-[hsl(var(--foreground))] text-white" hlmAvatarFallback>{{nm_inicial}}</span>
+        </hlm-avatar>
+        <div class="flex flex-col ml-2">
+          <span class="text-base font-bold">{{nm_usuario}}</span>
+          <span class="text-sm font-medium">{{nm_cargo}}</span>
         </div>
+      </div>
 
-        <!-- Botão para fechar -->
+      <div class="block md:hidden">
         <button title="Fechar" hlm variant="ghost" (click)="toggleSidebar()" class="text-[hsl(var(--foreground))]">
           <ng-icon hlm name="lucidePanelLeftClose" size="base" />
         </button>
       </div>
 
-      <!-- Conteúdo reduzido quando fechado -->
-      <div *ngIf="!sidebarOpen" class="flex justify-center items-start h-full ">
-       <div class="mt-8">
-        <button title="exibir" hlm variant="ghost" (click)="toggleSidebar()" class="text-center">
-          <ng-icon hlm size="base" name="lucidePanelRightClose" />
-        </button>
-       </div>
-      </div>
-
-      <!-- Menu de navegação -->
-    <app-nav-menu
-    [sidebarOpen]="sidebarOpen">
-    </app-nav-menu>
-      
     </div>
 
-    <!-- Conteúdo principal -->
-    <div class="flex-1 p-4 transition-all duration-300 ease-in-out ml-10 md:ml-0 ">
+    <app-nav-menu [sidebarOpen]="sidebarOpen"></app-nav-menu>
+  </div>
+
+  <!-- Conteúdo principal (Topbar + Router outlet) -->
+  <div class="flex flex-col flex-1 overflow-hidden">
+
+    <!-- Topbar ao lado da sidebar -->
+    <div class="bg-[hsl(var(--background))] text-[hsl(var(--foreground))] border-b border-[hsl(var(--secondary))]">
+      <div class="flex justify-start p-3">
+        <div class="mr-4">
+          <button hlm variant="ghost" (click)="toggleSidebar()" class="text-center">
+            <ng-icon hlm size="base" name="lucidePanelRightClose" />
+          </button>
+        </div>
+        <div>
+          <h1 class="text-base font-bold">ChatSocket</h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conteúdo abaixo da Topbar -->
+    <div class="flex-1 p-4 overflow-auto">
       <router-outlet></router-outlet>
     </div>
+
   </div>
 </div>

@@ -40,14 +40,24 @@ export class Menu implements OnInit {
   nm_usuario = '';
   nm_cargo = '';
   nm_inicial = '';
+  isMobile = false;
 
   ngOnInit(): void {
     this.nm_usuario = this.auth.getUser().nm_usuario;
     this.nm_cargo = 'Usuario';
     this.nm_inicial = formatarInicialNome(this.nm_usuario);
 
-    window.innerWidth < 768 ? this.sidebarOpen = false :   this.sidebarOpen = true
+    window.innerWidth < 768
+      ? (this.sidebarOpen = false)
+      : (this.sidebarOpen = true);
 
+    this.checkIfMobile();
+    window.addEventListener('resize', () => this.checkIfMobile());
+  }
+
+  checkIfMobile(): void
+  {
+    this.isMobile = window.innerWidth < 768; 
   }
 
   toggleSidebar() {
