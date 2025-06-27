@@ -27,8 +27,9 @@ import { NavMenu } from "../../../components/nav-menu/nav-menu";
     HlmAvatarImageDirective,
     HlmAvatarComponent,
     HlmAvatarFallbackDirective,
-    NavMenu
-],
+    NavMenu,
+    NgIcon,
+  ],
   providers: [provideIcons({ lucidePanelRightClose, lucidePanelLeftClose })],
   templateUrl: './menu.html',
   styleUrl: './menu.scss',

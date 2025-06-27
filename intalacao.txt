@@ -1,2 +1,4 @@
 npm install socket.io-client@^4.8.1 sockjs-client@^1.5.1
 npm install --save-dev @types/socket.io-client@^1.4.36
+quando for fazer depoyer e nao der certo apagar o node_modules e executar: npm install --save-dev serve
+
