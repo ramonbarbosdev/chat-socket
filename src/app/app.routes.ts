@@ -5,6 +5,7 @@ import { Home } from './pages/home/home';
 import { authGuard } from './auth/auth.guard';
 import { Login } from './pages/layout/login/login';
 import { Register } from './pages/layout/register/register';
+import { Amigos } from './pages/amigos/amigos';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: Home },
       { path: 'chat', component: ChatComponent },
+      { path: 'amigos', component: Amigos },
     ],
   },
 ];
