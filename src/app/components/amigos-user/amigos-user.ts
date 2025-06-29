@@ -45,10 +45,9 @@ export class AmigosUser implements OnInit {
   tp_status!: string;
 
   service = inject(AmigosService);
-  @Output() reload = new EventEmitter<void>();
+  eventService = inject(Eventservice);
 
   ngOnInit(): void {
-    console.log(this.model);
 
     if (this.model) {
       this.nm_usuario = this.model.id_requester.nome;
@@ -57,6 +56,7 @@ export class AmigosUser implements OnInit {
       this.id_usuario = this.model.id_receiver.id;
       this.id_friendship = this.model.id_friendship;
     }
+
   }
 
   aceitarConvite() {
@@ -65,13 +65,14 @@ export class AmigosUser implements OnInit {
 
     this.service.aceitarConvite(this.id_usuario, this.id_friendship).subscribe({
       next: (res) => {
-        this.reload.emit();
+        this.eventService.emitReloadAmigos();
         Swal.fire({
           icon: 'success',
           title: res.message,
           text: '',
           confirmButtonText: 'OK',
         });
+
       },
       error: (e) => {},
     });

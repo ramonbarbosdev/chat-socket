@@ -6,6 +6,7 @@ import { Message } from '../models/message';
 import { environment } from '../environment';
 import { AuthService } from '../auth/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Eventservice } from './eventservice';
 
 @Injectable({
   providedIn: 'root',
@@ -18,15 +19,15 @@ export class ChatService {
   private salas = new Map<string, Subject<Message>>();
   private auth = inject(AuthService);
 
+  private salasSubject = new Subject<void>();
+  private amigosSubject = new Subject<void>();
+
   constructor(private http: HttpClient) {
     this.initConnectionSocket();
   }
 
   private initConnectionSocket() {
     const url = `${environment.apiUrlWebSocket}`;
-    let token = this.auth.getToken();
-
-    // const url = `${environment.apiUrlWebSocket}?token=${token}`;
 
     this.stompClient = new Client({
       webSocketFactory: () => new SockJS(url),
@@ -42,6 +43,11 @@ export class ChatService {
         this.salasSubject.next(); // Emitir evento
       });
 
+      this.stompClient.subscribe('/topic/amigos', () => {
+        console.log('Recebido update em /topic/amigos');
+        this.amigosSubject.next(); // Dispara o evento
+      });
+
       if (this.currentRoomId) this.subscribeToRoom(this.currentRoomId);
     };
 
@@ -52,10 +58,12 @@ export class ChatService {
     this.stompClient.activate();
   }
 
-  //captar o back quando deletar
-  private salasSubject = new Subject<void>();
   getSalasUpdates(): Observable<void> {
     return this.salasSubject.asObservable();
+  }
+
+  getAmigosUpdates(): Observable<void> {
+    return this.amigosSubject.asObservable();
   }
 
   subscribeToRoom(roomId: string) {

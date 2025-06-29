@@ -16,16 +16,12 @@
             <div *ngFor="let item of todosList">
               <app-amigos-user 
               [model]="item"
-              (reload)="buscarAmigosPendentes()">
               ></app-amigos-user>
             </div>
           </div>
           <div hlmTabsContent="pendente">
-            <div *ngFor="let item of pendenteList; ">
-              <app-amigos-user 
-              [model]="item"
-              (reload)="buscarAmigosPendentes()">
-              ></app-amigos-user>
+            <div *ngFor="let item of pendenteList">
+              <app-amigos-user [model]="item"></app-amigos-user>
             </div>
           </div>
     </hlm-tabs>

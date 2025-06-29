@@ -59,7 +59,7 @@ export class Salaform implements OnInit {
     this.objeto.id_usuario = this.userId;
     this.baseService.cadastrar(this.endpoint, this.objeto).subscribe({
       next: (res: any) => {
-        this.eventService.emitReload();
+        this.eventService.emitReloadRoom();
         this.popoverState.set('closed');
       },
       error: (err) => {},

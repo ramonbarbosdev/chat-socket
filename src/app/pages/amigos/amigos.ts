@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {
   HlmTabsComponent,
   HlmTabsContentDirective,
@@ -11,6 +11,7 @@ import { AmigosService } from 'src/app/services/amigos.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Eventservice } from 'src/app/services/eventservice';
+import { ChatService } from 'src/app/services/chat.service';
 
 @Component({
   selector: 'app-amigos',
@@ -32,25 +33,28 @@ export class Amigos implements OnInit {
 
   service = inject(AmigosService);
   private auth = inject(AuthService);
+  private cdRef = inject(ChangeDetectorRef);
   private eventService = inject(Eventservice);
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.id_usuario = this.auth.getUser().id_usuario;
     this.buscarAmigosPendentes();
-    
 
-    
+    this.eventService.reloadAmigos$.subscribe(() => {
+      this.buscarAmigosPendentes();
+    });
   }
 
   buscarAmigosPendentes() {
-
     this.service.obterAmigoPendente(this.id_usuario).subscribe({
       next: (res) => {
         this.pendenteList = res;
+        this.cdRef.detectChanges();
+
       },
       error: (e) => {},
     });
-
   }
+
+
 }

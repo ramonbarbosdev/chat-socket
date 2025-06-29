@@ -8,8 +8,15 @@ export class Eventservice {
   private reloadSubject = new Subject<void>();
   reload$ = this.reloadSubject.asObservable();
 
-  emitReload() {
+  emitReloadRoom() {
     this.reloadSubject.next();
   }
-  
+
+
+  private reloadAmigosSubject = new Subject<void>();
+  reloadAmigos$ = this.reloadAmigosSubject.asObservable();
+
+  emitReloadAmigos() {
+    this.reloadAmigosSubject.next();
+  }
 }
