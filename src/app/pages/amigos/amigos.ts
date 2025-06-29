@@ -39,9 +39,23 @@ export class Amigos implements OnInit {
   ngOnInit(): void {
     this.id_usuario = this.auth.getUser().id_usuario;
     this.buscarAmigosPendentes();
+    this.buscarTodosAmigos();
 
     this.eventService.reloadAmigos$.subscribe(() => {
       this.buscarAmigosPendentes();
+      this.buscarTodosAmigos();
+    });
+  }
+
+  buscarTodosAmigos() {
+    this.service.obterAmigoTodos(this.id_usuario).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.todosList = res;
+        this.cdRef.detectChanges();
+
+      },
+      error: (e) => {},
     });
   }
 

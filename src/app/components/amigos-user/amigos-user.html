@@ -14,9 +14,13 @@
   </div>
 
   <div class=" flex justify-center items-center">
-    <!-- <ng-icon hlm size='base' name="lucideEllipsisVertical" /> -->
-    
-    
+    <button *ngIf="tp_status === 'ACEITO' " title="Mensagem" variant="ghost" hlmBtn   >
+      <ng-icon hlm size='base' name="lucideMessageCircle" />
+  </button>
+    <button *ngIf="tp_status === 'ACEITO' " title="Opções" variant="ghost" hlmBtn [brnMenuTriggerFor]="menu"  >
+       <ng-icon hlm size='base' name="lucideEllipsisVertical" />
+   </button>
+
     <button *ngIf="tp_status === 'PENDENTE' " title="aceitar" variant="ghost" hlmBtn  (click)="aceitarConvite()">
        <ng-icon hlm size='base' name="lucideCheck" />
     </button>
@@ -24,3 +28,19 @@
 
 </div>
 <brn-separator class="my-4 mb-20" hlmSeparator orientation="horizontal" />
+
+
+<ng-template #menu>
+  <hlm-menu>
+    <hlm-menu-label>Opções</hlm-menu-label>
+    <hlm-menu-separator />
+    <hlm-menu-group>
+      <button hlmMenuItem (click)="removerAmizade()">
+        Desfazer amizade
+      </button>
+
+      <hlm-menu-separator />
+
+    </hlm-menu-group>
+  </hlm-menu>
+</ng-template>
