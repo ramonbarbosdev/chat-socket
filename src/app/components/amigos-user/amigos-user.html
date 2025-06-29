@@ -1,0 +1,26 @@
+<brn-separator class="my-4 mb-20" hlmSeparator orientation="horizontal" />
+<div class="flex mt-5 justify-between">
+  <div class="flex">
+    <hlm-avatar variant="large">
+      <img src="" alt="Avatar" hlmAvatarImage />
+      <span class="bg-[hsl(var(--foreground))] text-white" hlmAvatarFallback
+        >{{nm_inicial}}</span
+      >
+    </hlm-avatar>
+    <div class="flex flex-col ml-2">
+      <span class="text-base font-bold">{{nm_usuario}}</span>
+      <span class="text-sm font-medium">{{tp_status}}</span>
+    </div>
+  </div>
+
+  <div class=" flex justify-center items-center">
+    <!-- <ng-icon hlm size='base' name="lucideEllipsisVertical" /> -->
+    
+    
+    <button *ngIf="tp_status === 'PENDENTE' " title="aceitar" variant="ghost" hlmBtn  (click)="aceitarConvite()">
+       <ng-icon hlm size='base' name="lucideCheck" />
+    </button>
+  </div>
+
+</div>
+<brn-separator class="my-4 mb-20" hlmSeparator orientation="horizontal" />

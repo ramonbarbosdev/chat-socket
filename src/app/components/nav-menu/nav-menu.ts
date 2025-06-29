@@ -8,7 +8,6 @@ import { Rooms } from '../../models/rooms';
 import { AuthService } from '../../auth/auth.service';
 import { Salaform } from '../salaform/salaform';
 
-import { Roomeventservice } from '../../services/roomeventservice';
 import { RoomService } from '../../services/room.service';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { HlmIconDirective } from '@spartan-ng/helm/icon';
@@ -19,6 +18,7 @@ import {
   lucideBox,
 } from '@ng-icons/lucide';
 import { ChatService } from '../../services/chat.service';
+import { Eventservice } from 'src/app/services/eventservice';
 @Component({
   selector: 'app-nav-menu',
   imports: [
@@ -47,7 +47,7 @@ export class NavMenu implements OnInit {
   router = inject(Router);
   baseService = inject(Baseservice);
   private auth = inject(AuthService);
-  private roomEvents = inject(Roomeventservice);
+  private eventService = inject(Eventservice);
   private cdRef = inject(ChangeDetectorRef);
   private roomService = inject(RoomService);
   private chatService = inject(ChatService);
@@ -61,7 +61,7 @@ export class NavMenu implements OnInit {
   ngOnInit(): void {
     this.carregarSalas();
     this.id_usuario = this.auth.getUser().id_usuario;
-    this.roomEvents.reload$.subscribe(() => this.carregarSalas());
+    this.eventService.reload$.subscribe(() => this.carregarSalas());
 
     //ouvir o back quando deletar
     this.chatService.getSalasUpdates().subscribe(() => {
@@ -69,8 +69,6 @@ export class NavMenu implements OnInit {
       this.router.navigate(['/admin/home']);
     });
   }
-
-
 
   carregarSalas() {
     this.baseService

@@ -4,12 +4,12 @@ import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class Roomeventservice {
+export class Eventservice {
   private reloadSubject = new Subject<void>();
   reload$ = this.reloadSubject.asObservable();
 
-  emitReloadRoom() {
-    
+  emitReload() {
     this.reloadSubject.next();
   }
+  
 }

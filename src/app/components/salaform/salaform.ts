@@ -18,7 +18,7 @@ import { AuthService } from '../../auth/auth.service';
 import { Baseservice } from '../../services/baseservice';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { Roomeventservice } from '../../services/roomeventservice';
+import { Eventservice } from '../../services/eventservice';
 @Component({
   selector: 'app-salaform',
   imports: [
@@ -43,7 +43,7 @@ export class Salaform implements OnInit {
   endpoint = 'room';
   userId: number = 0;
   router = inject(Router);
-  private roomEvents = inject(Roomeventservice);
+  private eventService = inject(Eventservice);
 
   public popoverState = signal<'open' | 'closed'>('closed');
 
@@ -59,7 +59,7 @@ export class Salaform implements OnInit {
     this.objeto.id_usuario = this.userId;
     this.baseService.cadastrar(this.endpoint, this.objeto).subscribe({
       next: (res: any) => {
-        this.roomEvents.emitReloadRoom();
+        this.eventService.emitReload();
         this.popoverState.set('closed');
       },
       error: (err) => {},
