@@ -79,7 +79,7 @@ export class AmigosService {
     );
   }
 
-  remover( id_friendship: string): Observable<any> {
+  remover(id_friendship: string): Observable<any> {
     const url = `${this.apiUrl}/${id_friendship}`;
 
     return this.http.delete<any>(url).pipe(
@@ -94,6 +94,22 @@ export class AmigosService {
           text: e.error.message,
           confirmButtonText: 'OK',
         });
+        return throwError(() => e);
+      })
+    );
+  }
+
+  getOnlineUsers(): Observable<number[]> {
+
+    const url = `${environment.apiUrl}/presence/online`;
+
+    return this.http.get<any>(url).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        console.log(e);
+        
         return throwError(() => e);
       })
     );

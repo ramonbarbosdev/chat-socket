@@ -10,7 +10,10 @@
             <button hlmTabsTrigger="pendente">Pendente</button>
         </hlm-tabs-list>
         <div hlmTabsContent="online">
-  
+          <div *ngFor="let item of pendenteList">
+            <!-- <app-amigos-user [model]="item" [online]="isOnline(item.id_requester.id)"></app-amigos-user> -->
+          </div>
+
           </div>
           <div hlmTabsContent="todos">
             <div *ngFor="let item of todosList">

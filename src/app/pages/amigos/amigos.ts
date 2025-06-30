@@ -30,6 +30,7 @@ export class Amigos implements OnInit {
   pendenteList: Amigo[] = [];
   todosList: Amigo[] = [];
   id_usuario: string = '';
+  onlineUserIds: number[] = [];
 
   service = inject(AmigosService);
   private auth = inject(AuthService);
@@ -40,20 +41,35 @@ export class Amigos implements OnInit {
     this.id_usuario = this.auth.getUser().id_usuario;
     this.buscarAmigosPendentes();
     this.buscarTodosAmigos();
+    this.buscarUsuariosOnline();
 
     this.eventService.reloadAmigos$.subscribe(() => {
       this.buscarAmigosPendentes();
       this.buscarTodosAmigos();
+      this.buscarUsuariosOnline();
     });
+  }
+
+  buscarUsuariosOnline() {
+    this.service.getOnlineUsers().subscribe({
+      next: (res) => {
+        console.log(res);
+        this.onlineUserIds = res;
+        this.cdRef.detectChanges();
+      },
+      error: (e) => {},
+    });
+  }
+
+  isOnline(id: number): boolean {
+    return this.onlineUserIds.includes(id);
   }
 
   buscarTodosAmigos() {
     this.service.obterAmigoTodos(this.id_usuario).subscribe({
       next: (res) => {
-        console.log(res);
         this.todosList = res;
         this.cdRef.detectChanges();
-
       },
       error: (e) => {},
     });
@@ -64,11 +80,8 @@ export class Amigos implements OnInit {
       next: (res) => {
         this.pendenteList = res;
         this.cdRef.detectChanges();
-
       },
       error: (e) => {},
     });
   }
-
-
 }

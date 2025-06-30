@@ -34,6 +34,15 @@
     </button>
 
     <button
+      [routerLink]="'amigos'"
+      class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
+    >
+      <span class="inline-flex items-center gap-2">
+        <ng-icon hlm size='sm' name="lucideUsers" />
+        Amigos
+      </span>
+    </button>
+    <button
       (click)="sair()"
       class="w-full text-left px-4 py-2 rounded hover:bg-gray-100 text-gray-800"
     >

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { BrnCommandImports } from '@spartan-ng/brain/command';
 import { HlmCommandImports } from '@spartan-ng/helm/command';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Baseservice } from '../../services/baseservice';
 import { Rooms } from '../../models/rooms';
 import { AuthService } from '../../auth/auth.service';
@@ -16,6 +16,7 @@ import {
   lucideCircleFadingPlus,
   lucideCalendar,
   lucideBox,
+  lucideUsers,
 } from '@ng-icons/lucide';
 import { ChatService } from '../../services/chat.service';
 import { Eventservice } from 'src/app/services/eventservice';
@@ -28,6 +29,7 @@ import { Eventservice } from 'src/app/services/eventservice';
     Salaform,
     NgIcon,
     HlmIconDirective,
+    RouterLink
   ],
   providers: [
     provideIcons({
@@ -35,6 +37,7 @@ import { Eventservice } from 'src/app/services/eventservice';
       lucideCircleFadingPlus,
       lucideCalendar,
       lucideBox,
+      lucideUsers,
     }),
   ],
   templateUrl: './nav-menu.html',

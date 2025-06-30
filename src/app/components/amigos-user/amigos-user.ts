@@ -55,6 +55,7 @@ import {
 })
 export class AmigosUser implements OnInit {
   @Input() model: any;
+  @Input() online: boolean = false;
 
   nm_inicial!: '';
   nm_usuario!: '';
