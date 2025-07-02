@@ -43,7 +43,6 @@ export class AuthService {
     this.fazerLogout().subscribe({
       next: () => {
         this.clearToken();
-        this.eventService.emitReloadAmigos(); 
         this.router.navigate(['/login']);
 
       },

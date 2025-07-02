@@ -31,7 +31,6 @@ export class Login {
       next: (res: any) => {
         this.auth.setUser(res)
         this.auth.setToken(res.Authorization);
-        this.eventService.emitReloadAmigos();
         this.router.navigate(['admin/home']);
       },
       error: (err) => {

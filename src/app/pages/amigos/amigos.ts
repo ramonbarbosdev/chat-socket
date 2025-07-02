@@ -36,6 +36,7 @@ export class Amigos implements OnInit {
   private auth = inject(AuthService);
   private cdRef = inject(ChangeDetectorRef);
   private eventService = inject(Eventservice);
+  private chatService = inject(ChatService);
 
   ngOnInit(): void {
     this.id_usuario = this.auth.getUser().id_usuario;
@@ -43,7 +44,15 @@ export class Amigos implements OnInit {
     this.buscarTodosAmigos();
     this.buscarUsuariosOnline();
 
+    //Atualização entre front
     this.eventService.reloadAmigos$.subscribe(() => {
+      this.buscarAmigosPendentes();
+      this.buscarTodosAmigos();
+      this.buscarUsuariosOnline();
+    });
+
+    //atualização entre o  back e front
+    this.chatService.getAmigosUpdates().subscribe(() => {
       this.buscarAmigosPendentes();
       this.buscarTodosAmigos();
       this.buscarUsuariosOnline();
@@ -53,7 +62,8 @@ export class Amigos implements OnInit {
   buscarUsuariosOnline() {
     this.service.getOnlineUsers(this.id_usuario).subscribe({
       next: (res) => {
-        this.onlineUserIds = res;
+        this.onlineUserIds = [...res];
+        // console.log('Online atualizado:', this.onlineUserIds);
         this.cdRef.detectChanges();
       },
       error: (e) => {},
@@ -62,16 +72,12 @@ export class Amigos implements OnInit {
 
   isOnline(item: any): boolean {
     let userId;
-    if (this.id_usuario === item?.id_receiver?.id)
-      {
-     userId = item?.id_requester?.id 
-
-      } 
-      else{
-         userId = item?.id_receiver?.id;
-
-      }
-      // console.log(this.onlineUserIds.some((u) => u.id === userId));
+    if (this.id_usuario === item?.id_receiver?.id) {
+      userId = item?.id_requester?.id;
+    } else {
+      userId = item?.id_receiver?.id;
+    }
+    // console.log(this.onlineUserIds.some((u) => u.id === userId));
     return this.onlineUserIds.some((u) => u.id === userId);
   }
 
