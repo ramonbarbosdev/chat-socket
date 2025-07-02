@@ -3,22 +3,17 @@
 
 <section hlmCard class="w-full h-full max-w-3xl mx-auto flex flex-col">
 
-    <hlm-tabs tab="online" class="w-full">
+    <hlm-tabs tab="todos" class="w-full">
         <hlm-tabs-list class="grid w-full grid-cols-3" aria-label="tabs example">
-            <button hlmTabsTrigger="online">Online</button>
             <button hlmTabsTrigger="todos">Todos</button>
             <button hlmTabsTrigger="pendente">Pendente</button>
         </hlm-tabs-list>
-        <div hlmTabsContent="online">
-          <div *ngFor="let item of pendenteList">
-            <!-- <app-amigos-user [model]="item" [online]="isOnline(item.id_requester.id)"></app-amigos-user> -->
-          </div>
-
-          </div>
+     
           <div hlmTabsContent="todos">
             <div *ngFor="let item of todosList">
               <app-amigos-user 
               [model]="item"
+              [online]="isOnline(item)"
               ></app-amigos-user>
             </div>
           </div>

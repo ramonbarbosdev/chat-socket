@@ -5,6 +5,7 @@ import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { AuthService } from '../../../auth/auth.service';
 import Swal from 'sweetalert2'
 import { InputCustom } from "../../../components/input/input";
+import { Eventservice } from 'src/app/services/eventservice';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class Login {
   public objeto = { login: '',  senha: '', };
   router = inject(Router);
   constructor(private auth: AuthService) {}
+  private eventService = inject(Eventservice);
 
   // To:do -  colocar processamento enquanto o servidor nao responde:
 
@@ -29,6 +31,7 @@ export class Login {
       next: (res: any) => {
         this.auth.setUser(res)
         this.auth.setToken(res.Authorization);
+        this.eventService.emitReloadAmigos();
         this.router.navigate(['admin/home']);
       },
       error: (err) => {

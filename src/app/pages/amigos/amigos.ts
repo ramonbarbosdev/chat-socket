@@ -30,7 +30,7 @@ export class Amigos implements OnInit {
   pendenteList: Amigo[] = [];
   todosList: Amigo[] = [];
   id_usuario: string = '';
-  onlineUserIds: number[] = [];
+  onlineUserIds: { id: number; nome: string }[] = [];
 
   service = inject(AmigosService);
   private auth = inject(AuthService);
@@ -51,9 +51,8 @@ export class Amigos implements OnInit {
   }
 
   buscarUsuariosOnline() {
-    this.service.getOnlineUsers().subscribe({
+    this.service.getOnlineUsers(this.id_usuario).subscribe({
       next: (res) => {
-        console.log(res);
         this.onlineUserIds = res;
         this.cdRef.detectChanges();
       },
@@ -61,8 +60,19 @@ export class Amigos implements OnInit {
     });
   }
 
-  isOnline(id: number): boolean {
-    return this.onlineUserIds.includes(id);
+  isOnline(item: any): boolean {
+    let userId;
+    if (this.id_usuario === item?.id_receiver?.id)
+      {
+     userId = item?.id_requester?.id 
+
+      } 
+      else{
+         userId = item?.id_receiver?.id;
+
+      }
+      // console.log(this.onlineUserIds.some((u) => u.id === userId));
+    return this.onlineUserIds.some((u) => u.id === userId);
   }
 
   buscarTodosAmigos() {

@@ -99,9 +99,8 @@ export class AmigosService {
     );
   }
 
-  getOnlineUsers(): Observable<number[]> {
-
-    const url = `${environment.apiUrl}/presence/online`;
+  getOnlineUsers(id_usuario: string): Observable<any[]> {
+    const url = `${this.apiUrl}/amigos-online/${id_usuario}`;
 
     return this.http.get<any>(url).pipe(
       map((res) => {
@@ -109,7 +108,7 @@ export class AmigosService {
       }),
       catchError((e) => {
         console.log(e);
-        
+
         return throwError(() => e);
       })
     );

@@ -1,4 +1,12 @@
-import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   HlmAvatarImageDirective,
   HlmAvatarComponent,
@@ -27,7 +35,7 @@ import {
   HlmMenuLabelComponent,
   HlmMenuSeparatorComponent,
 } from '@spartan-ng/helm/menu';
-
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-amigos-user',
@@ -55,7 +63,7 @@ import {
 })
 export class AmigosUser implements OnInit {
   @Input() model: any;
-  @Input() online: boolean = false;
+  @Input() online: boolean | undefined;
 
   nm_inicial!: '';
   nm_usuario!: '';
@@ -65,13 +73,19 @@ export class AmigosUser implements OnInit {
 
   service = inject(AmigosService);
   eventService = inject(Eventservice);
+  private auth = inject(AuthService);
 
   ngOnInit(): void {
     if (this.model) {
-      this.nm_usuario = this.model.id_requester.nome;
+      if (this.model.id_receiver.id === this.auth.getUser().id_usuario) {
+        this.id_usuario = this.model.id_requester.id;
+        this.nm_usuario = this.model.id_requester.nome;
+      } else {
+        this.id_usuario = this.model.id_receiver.id;
+        this.nm_usuario = this.model.id_receiver.nome;
+      }
       this.tp_status = this.model.tp_status;
       this.nm_inicial = formatarInicialNome(this.nm_usuario);
-      this.id_usuario = this.model.id_receiver.id;
       this.id_friendship = this.model.id_friendship;
     }
   }
