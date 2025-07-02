@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
 import { HlmInputDirective } from '@spartan-ng/helm/input';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
 
 @Component({
   selector: 'app-input',
-  imports: [HlmFormFieldModule, HlmInputDirective],
+  imports: [HlmFormFieldModule, HlmInputDirective, HlmLabelDirective],
   templateUrl: './input.html',
   styleUrl: './input.scss',
 })

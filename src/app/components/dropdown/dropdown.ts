@@ -45,6 +45,7 @@ export class Dropdown {
   @Input() selected: string = '';
   @Input() placeholder: string = 'Selecione uma opção';
   @Output() selectedChange = new EventEmitter<string>();
+  @Input() width: string = 'w-6/6';
 
   public state = signal<'closed' | 'open'>('closed');
 

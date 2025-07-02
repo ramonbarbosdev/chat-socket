@@ -1,4 +1,5 @@
 <hlm-form-field class="mb-4 block">
+  <label class="mb-2" hlmLabel>{{label}}</label>
     <input 
     title="Campo de entrada" 
     hlmInput 
@@ -8,5 +9,5 @@
     [placeholder]="placeholder" 
     class="w-full"   
     (input)="onInputChange($event)"/>
-    <hlm-hint>{{label}}</hlm-hint>
+    <!-- <hlm-hint></hlm-hint> -->
   </hlm-form-field>

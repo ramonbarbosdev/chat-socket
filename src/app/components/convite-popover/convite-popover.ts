@@ -42,7 +42,6 @@ export class ConvitePopover {
   @Input() id_room: any;
   @Input() id_usuariologado: any;
   usuarioOpcoes: any[] = [];
-
   usuarioSelecionado = '';
 
   private auth = inject(AuthService);

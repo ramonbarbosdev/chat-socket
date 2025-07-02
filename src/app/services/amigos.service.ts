@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../environment';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -112,5 +112,47 @@ export class AmigosService {
         return throwError(() => e);
       })
     );
+  }
+
+  obterAmigoDisponivel(id_usuario: string): Observable<any> {
+    const url = `${this.apiUrl}/amigo-disponivel/${id_usuario}`;
+
+    return this.http.get<any>(url).pipe(
+      map((res) => {
+        return res;
+      }),
+      catchError((e) => {
+        return throwError(() => e);
+      })
+    );
+  }
+
+  enviarConviteAmigo(
+    id_requester: string,
+    id_receiver: string
+  ): Observable<any> {
+    {
+      const url = `${this.apiUrl}/convidar/${id_requester}/${id_receiver}`;
+      return this.http.post<any>(url, null).pipe(
+        tap((res) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Sucesso',
+            text: 'Convite enviado com sucesso!',
+            confirmButtonText: 'OK',
+          });
+          return res;
+        }),
+        catchError((e) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Erro ao enviar!',
+            text: e.error.message,
+            confirmButtonText: 'OK',
+          });
+          return throwError(() => e);
+        })
+      );
+    }
   }
 }

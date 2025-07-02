@@ -10,7 +10,8 @@
     <div class="flex flex-col ml-2">
       <span class="text-base font-bold">{{nm_usuario}}</span>
       <span *ngIf="online"  class="text-sm font-medium">Online</span>
-      <span *ngIf="!online"  class="text-sm font-medium">Offline</span>
+      <span *ngIf="!online && tp_status === 'PENDENTE'"  class="text-sm font-medium">Pendente</span>
+      <span *ngIf="!online && tp_status != 'PENDENTE'"  class="text-sm font-medium">Offline</span>
     </div>
   </div>
 

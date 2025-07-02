@@ -1,27 +1,41 @@
-
-
-
 <section hlmCard class="w-full h-full max-w-3xl mx-auto flex flex-col">
+  <hlm-tabs tab="todos" class="w-full">
+    <hlm-tabs-list class="grid w-full grid-cols-3" aria-label="tabs example">
+      <button hlmTabsTrigger="todos">Todos</button>
+      <button hlmTabsTrigger="pendente">Pendente</button>
+      <button hlmTabsTrigger="adicionar">Adicionar amigo</button>
+    </hlm-tabs-list>
 
-    <hlm-tabs tab="todos" class="w-full">
-        <hlm-tabs-list class="grid w-full grid-cols-3" aria-label="tabs example">
-            <button hlmTabsTrigger="todos">Todos</button>
-            <button hlmTabsTrigger="pendente">Pendente</button>
-        </hlm-tabs-list>
-     
-          <div hlmTabsContent="todos">
-            <div *ngFor="let item of todosList">
-              <app-amigos-user 
-              [model]="item"
-              [online]="isOnline(item)"
-              ></app-amigos-user>
-            </div>
-          </div>
-          <div hlmTabsContent="pendente">
-            <div *ngFor="let item of pendenteList">
-              <app-amigos-user [model]="item"></app-amigos-user>
-            </div>
-          </div>
-    </hlm-tabs>
+    <div hlmTabsContent="todos">
+      <div *ngFor="let item of todosList">
+        <app-amigos-user
+          [model]="item"
+          [online]="isOnline(item)"
+        ></app-amigos-user>
+      </div>
+    </div>
+    <div hlmTabsContent="pendente">
+      <div *ngFor="let item of pendenteList">
+        <app-amigos-user [model]="item"></app-amigos-user>
+      </div>
+    </div>
+    <div hlmTabsContent="adicionar">
+      <div class="flex flex-col p-5">
+        <label hlmLabel>Adicionar amigo</label>
+        <hlm-hint  class="mb-2">Você póde adicionar um novo amigo pelo nome do usuario</hlm-hint>
 
+      <div>
+        <app-dropdown
+        [options]="usuarioOpcoes"
+        [placeholder]="'Selecione'"
+        [(selected)]="usuarioSelecionado"
+        [width]="'w-4/6'"
+      >
+      </app-dropdown>
+
+      <button class="ml-5" (click)="enviarConvite()" hlmBtn >Enviar</button>
+      </div>
+      </div>
+    </div>
+  </hlm-tabs>
 </section>

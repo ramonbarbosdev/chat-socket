@@ -76,9 +76,11 @@ export class AmigosUser implements OnInit {
   private auth = inject(AuthService);
 
   ngOnInit(): void {
-    if (this.model) {
-      if (this.model.id_receiver.id === this.auth.getUser().id_usuario) {
-        this.id_usuario = this.model.id_requester.id;
+    this.id_usuario = this.auth.getUser().id_usuario;
+
+    if (this.model)
+    {
+      if (this.model.id_receiver.id === this.id_usuario) {
         this.nm_usuario = this.model.id_requester.nome;
       } else {
         this.id_usuario = this.model.id_receiver.id;

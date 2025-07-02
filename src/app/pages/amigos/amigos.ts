@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   HlmTabsComponent,
   HlmTabsContentDirective,
@@ -12,6 +18,10 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Eventservice } from 'src/app/services/eventservice';
 import { ChatService } from 'src/app/services/chat.service';
+import { Dropdown } from '../../components/dropdown/dropdown';
+import { HlmLabelDirective } from '@spartan-ng/helm/label';
+import { HlmFormFieldModule } from '@spartan-ng/helm/form-field';
+import { HlmButtonDirective } from '@spartan-ng/helm/button';
 
 @Component({
   selector: 'app-amigos',
@@ -22,15 +32,23 @@ import { ChatService } from 'src/app/services/chat.service';
     HlmTabsTriggerDirective,
     AmigosUser,
     CommonModule,
+    Dropdown,
+    HlmLabelDirective,
+    HlmFormFieldModule,
+    HlmButtonDirective,
   ],
   templateUrl: './amigos.html',
   styleUrl: './amigos.scss',
 })
 export class Amigos implements OnInit {
+  public objeto: Amigo = new Amigo();
   pendenteList: Amigo[] = [];
   todosList: Amigo[] = [];
   id_usuario: string = '';
   onlineUserIds: { id: number; nome: string }[] = [];
+
+  usuarioOpcoes: any[] = [];
+  usuarioSelecionado = '';
 
   service = inject(AmigosService);
   private auth = inject(AuthService);
@@ -43,12 +61,14 @@ export class Amigos implements OnInit {
     this.buscarAmigosPendentes();
     this.buscarTodosAmigos();
     this.buscarUsuariosOnline();
+    this.obterTodosAmigosDisponivel();
 
     //Atualização entre front
     this.eventService.reloadAmigos$.subscribe(() => {
       this.buscarAmigosPendentes();
       this.buscarTodosAmigos();
       this.buscarUsuariosOnline();
+      this.obterTodosAmigosDisponivel();
     });
 
     //atualização entre o  back e front
@@ -57,6 +77,32 @@ export class Amigos implements OnInit {
       this.buscarTodosAmigos();
       this.buscarUsuariosOnline();
     });
+  }
+
+  obterTodosAmigosDisponivel() {
+    this.service.obterAmigoDisponivel(this.id_usuario).subscribe({
+      next: (res) => {
+        this.usuarioOpcoes = res.map((user: any) => ({
+          label: user.nome,
+          value: String(user.id),
+        }));
+        this.cdRef.detectChanges();
+      },
+      error: () => {},
+    });
+  }
+
+  enviarConvite() {
+    if (!this.usuarioSelecionado) return;
+
+    this.service
+      .enviarConviteAmigo(this.id_usuario, this.usuarioSelecionado)
+      .subscribe({
+        next: (res) => {
+          this.usuarioSelecionado = '';
+        },
+        error: () => {},
+      });
   }
 
   buscarUsuariosOnline() {
@@ -77,7 +123,6 @@ export class Amigos implements OnInit {
     } else {
       userId = item?.id_receiver?.id;
     }
-    // console.log(this.onlineUserIds.some((u) => u.id === userId));
     return this.onlineUserIds.some((u) => u.id === userId);
   }
 

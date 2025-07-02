@@ -49,6 +49,9 @@
       ],
       "@spartan-ng/helm/separator": [
         ".\\libs/ui/ui-separator-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/label": [
+        ".\\libs/ui/ui-label-helm/src/index.ts"
       ]
     }
   },
