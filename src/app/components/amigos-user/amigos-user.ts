@@ -36,6 +36,7 @@ import {
   HlmMenuSeparatorComponent,
 } from '@spartan-ng/helm/menu';
 import { AuthService } from 'src/app/auth/auth.service';
+import { RoomService } from 'src/app/services/room.service';
 
 @Component({
   selector: 'app-amigos-user',
@@ -68,28 +69,42 @@ export class AmigosUser implements OnInit {
   nm_inicial!: '';
   nm_usuario!: '';
   id_usuario!: string;
+  id_amigo!: string;
   id_friendship!: string;
   tp_status!: string;
 
   service = inject(AmigosService);
+  roomService = inject(RoomService);
   eventService = inject(Eventservice);
   private auth = inject(AuthService);
 
   ngOnInit(): void {
     this.id_usuario = this.auth.getUser().id_usuario;
 
-    if (this.model)
-    {
+    if (this.model) {
       if (this.model.id_receiver.id === this.id_usuario) {
+        this.id_amigo = this.model.id_requester.id;
         this.nm_usuario = this.model.id_requester.nome;
       } else {
-        this.id_usuario = this.model.id_receiver.id;
         this.nm_usuario = this.model.id_receiver.nome;
+        this.id_amigo = this.model.id_receiver.id;
       }
       this.tp_status = this.model.tp_status;
       this.nm_inicial = formatarInicialNome(this.nm_usuario);
       this.id_friendship = this.model.id_friendship;
+
     }
+  }
+
+  abrirBatePapo() {
+    this.roomService
+      .cadastrarSalaIndividual(this.id_usuario, this.id_amigo)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (e) => {},
+      });
   }
 
   aceitarConvite() {

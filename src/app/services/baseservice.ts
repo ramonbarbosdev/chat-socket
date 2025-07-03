@@ -65,7 +65,7 @@ export class Baseservice {
         Swal.fire({
           icon: 'error',
           title: 'Erro ao consultar por ID!',
-          text: e.error.error,
+          text: e.error.message,
           confirmButtonText: 'OK',
         });
         return throwError(() => e);

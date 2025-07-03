@@ -29,6 +29,7 @@ import { Baseservice } from '../../services/baseservice';
 
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { ConvitePopover } from "../convite-popover/convite-popover";
+import { RoomService } from 'src/app/services/room.service';
 
 
 
@@ -70,6 +71,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
   private auth = inject(AuthService);
   private basService = inject(Baseservice);
+  private roomService = inject(RoomService);
   private nomeCache = new Map<string, string>();
   router = inject(Router);
 
@@ -99,11 +101,11 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this.route.queryParamMap.subscribe((params) => {
       this.id_room = params.get('id_room') ?? '';
+      this.obterDadosSala(this.id_room);
 
       this.enterRoom(this.id_room);
     });
 
-    this.obterDadosSala(this.id_room);
   }
 
   enterRoom(roomId: string) {
@@ -178,7 +180,7 @@ export class ChatComponent implements OnInit, AfterViewInit {
   }
 
   obterDadosSala(id_room: string): void {
-    this.basService.obterPorId('room', Number(id_room)).subscribe({
+    this.roomService.obterInformacaoSala(id_room, this.id_usuario).subscribe({
       next: (res) => {
         this.nomeSalaInicial = formatarInicialNome(res.nm_room);
         this.nm_room = res.nm_room;

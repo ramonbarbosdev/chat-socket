@@ -17,7 +17,7 @@
 
   <div class=" flex justify-center items-center">
 
-    <button *ngIf="tp_status === 'ACEITO' " title="Mensagem" variant="ghost" hlmBtn   >
+    <button *ngIf="tp_status === 'ACEITO' " title="Mensagem" variant="ghost"  (click)="abrirBatePapo()" hlmBtn   >
       <ng-icon hlm size='base' name="lucideMessageCircle" />
   </button>
     <button *ngIf="tp_status === 'ACEITO' " title="Opções" variant="ghost" hlmBtn [brnMenuTriggerFor]="menu"  >
