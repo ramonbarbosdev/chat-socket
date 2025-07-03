@@ -35,12 +35,21 @@ export class RoomService {
 
     return this.http.post<any>(url, null).pipe(
       tap((res) => {
-        // Swal.fire({
-        //   icon: 'success',
-        //   title: 'Sucesso',
-        //   text: 'Cadastrado com sucesso!',
-        //   confirmButtonText: 'OK',
-        // });
+        const Toast = Swal.mixin({
+                           toast: true,
+                           position: 'top-end',
+                           showConfirmButton: false,
+                           timer: 3000,
+                           timerProgressBar: true,
+                           didOpen: (toast) => {
+                             toast.onmouseenter = Swal.stopTimer;
+                             toast.onmouseleave = Swal.resumeTimer;
+                           },
+                         });
+                         Toast.fire({
+                           icon: 'success',
+                           title: res?.message,
+                         });
         return res;
       }),
       catchError((e) => {

@@ -37,6 +37,7 @@ import {
 } from '@spartan-ng/helm/menu';
 import { AuthService } from 'src/app/auth/auth.service';
 import { RoomService } from 'src/app/services/room.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-amigos-user',
@@ -77,6 +78,7 @@ export class AmigosUser implements OnInit {
   roomService = inject(RoomService);
   eventService = inject(Eventservice);
   private auth = inject(AuthService);
+  router = inject(Router);
 
   ngOnInit(): void {
     this.id_usuario = this.auth.getUser().id_usuario;
@@ -92,7 +94,6 @@ export class AmigosUser implements OnInit {
       this.tp_status = this.model.tp_status;
       this.nm_inicial = formatarInicialNome(this.nm_usuario);
       this.id_friendship = this.model.id_friendship;
-
     }
   }
 
@@ -101,7 +102,11 @@ export class AmigosUser implements OnInit {
       .cadastrarSalaIndividual(this.id_usuario, this.id_amigo)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          this.router.navigate(['/admin/chat'], {
+            queryParams: {
+              id_room: res.room.id_room,
+            },
+          });
         },
         error: (e) => {},
       });
