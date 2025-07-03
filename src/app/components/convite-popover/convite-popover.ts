@@ -66,7 +66,7 @@ export class ConvitePopover {
 
     //Fazer validacao de usuario que ja estão na sala
     this.conviteService.enviarConviteSala(this.id_room, id_usuario).subscribe({
-      next: (res) => {},
+      next: (res) => { this.fecharPopover()},
       error: () => {},
     });
   }

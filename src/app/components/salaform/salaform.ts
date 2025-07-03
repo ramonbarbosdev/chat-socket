@@ -61,6 +61,8 @@ export class Salaform implements OnInit {
       next: (res: any) => {
         this.eventService.emitReloadRoom();
         this.popoverState.set('closed');
+
+       
       },
       error: (err) => {},
     });

@@ -32,8 +32,6 @@ export class Baseservice {
     );
   }
 
-  
-
   obterTodos(endpoint: string): Observable<any> {
     const url = `${this.apiUrl}/${endpoint}/`;
 
@@ -61,7 +59,7 @@ export class Baseservice {
         return res;
       }),
       catchError((e) => {
-        console.log(e)
+        console.log(e);
         Swal.fire({
           icon: 'error',
           title: 'Erro ao consultar por ID!',
@@ -78,16 +76,25 @@ export class Baseservice {
 
     return this.http.post<any>(url, data).pipe(
       tap((res) => {
-        Swal.fire({
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
           icon: 'success',
-          title: 'Sucesso',
-          text: 'Cadastrado com sucesso!',
-          confirmButtonText: 'OK',
+          title: 'Cadastrado com sucesso!',
         });
         return res;
       }),
       catchError((e) => {
-        console.log(e)
+        console.log(e);
         Swal.fire({
           icon: 'error',
           title: 'Erro ao salvar!',
@@ -129,11 +136,20 @@ export class Baseservice {
 
     return this.http.delete<any>(url).pipe(
       tap((res) => {
-        Swal.fire({
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+          },
+        });
+        Toast.fire({
           icon: 'success',
-          title: 'Sucesso',
-          text: res?.error || 'Registro deletado com sucesso.',
-          confirmButtonText: 'OK',
+          title: res?.message || 'Registro deletado com sucesso.',
         });
       }),
       catchError((e) => {

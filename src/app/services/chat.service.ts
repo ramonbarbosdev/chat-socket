@@ -21,6 +21,7 @@ export class ChatService {
 
   private salasSubject = new Subject<void>();
   private amigosSubject = new Subject<void>();
+  private salasSubjectDelete = new Subject<string>();
 
   constructor(private http: HttpClient) {
     this.initConnectionSocket();
@@ -40,12 +41,15 @@ export class ChatService {
       console.log('Conectado ao WebSocket');
 
       this.stompClient.subscribe('/topic/salas', () => {
-        this.salasSubject.next(); // Emitir evento
+        this.salasSubject.next(); 
+      });
+
+      this.stompClient.subscribe('/topic/salas/delete', (retorno) => {
+        this.salasSubjectDelete.next(retorno.body);
       });
 
       this.stompClient.subscribe('/topic/amigos', () => {
-        console.log('Recebido update em /topic/amigos');
-        this.amigosSubject.next(); // Dispara o evento
+        this.amigosSubject.next();
       });
 
       if (this.currentRoomId) this.subscribeToRoom(this.currentRoomId);
@@ -60,6 +64,10 @@ export class ChatService {
 
   getSalasUpdates(): Observable<void> {
     return this.salasSubject.asObservable();
+  }
+
+  getSalasUpdatesDelete(): Observable<string> {
+    return this.salasSubjectDelete.asObservable();
   }
 
   getAmigosUpdates(): Observable<void> {

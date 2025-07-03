@@ -69,7 +69,7 @@ export class NavMenu implements OnInit {
     //ouvir o back quando deletar
     this.chatService.getSalasUpdates().subscribe(() => {
       this.carregarSalas();
-      this.router.navigate(['/admin/home']);
+      // this.router.navigate(['/admin/home']);
     });
   }
 

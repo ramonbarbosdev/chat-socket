@@ -30,6 +30,7 @@ import { Baseservice } from '../../services/baseservice';
 import { HlmButtonDirective } from '@spartan-ng/helm/button';
 import { ConvitePopover } from "../convite-popover/convite-popover";
 import { RoomService } from 'src/app/services/room.service';
+import Swal from 'sweetalert2';
 
 
 
@@ -104,6 +105,10 @@ export class ChatComponent implements OnInit, AfterViewInit {
       this.obterDadosSala(this.id_room);
 
       this.enterRoom(this.id_room);
+    });
+
+    this.chatService.getSalasUpdatesDelete().subscribe((retorno) => {
+      if (retorno == this.id_room) this.router.navigate(['/admin/home']);
     });
 
   }
@@ -189,7 +194,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
         this.cdr.detectChanges();
       },
       error: (e) => {
-        this.router.navigate(['/admin/home']);
+        // this.router.navigate(['/admin/home']);
+        //  Swal.fire({
+        //    icon: 'warning',
+        //    title: 'Sala inexistente!',
+        //    text: 'Sala foi excluida pelo dono',
+        //    confirmButtonText: 'OK',
+        //  });
         this.cdr.detectChanges();
       },
     });

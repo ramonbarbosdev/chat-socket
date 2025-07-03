@@ -21,12 +21,7 @@ export class RoomService {
       }),
       catchError((e) => {
         console.log(e);
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro ao consultar por ID!',
-          text: e.error.message,
-          confirmButtonText: 'OK',
-        });
+       
         return throwError(() => e);
       })
     );
