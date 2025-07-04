@@ -44,6 +44,12 @@ export class Register {
       },
       error: (err) => {
         console.log(err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Cadastro com inconsistências!',
+          text: err.error.message,
+          confirmButtonText: 'OK',
+        });
         
       },
     });
